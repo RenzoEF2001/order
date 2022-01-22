@@ -19,51 +19,34 @@
                         <b>
                             <th scope="col" class="cbz">#</th>
                         </b>
-                        <th scope="col" class="cbz">Editar</th>
-                        <th scope="col" class="cbz">Eliminar</th>
-                        <th scope="col" class="cbz">First</th>
-                        <th scope="col" class="cbz">Last</th>
-                        <th scope="col" class="cbz">Handle</th>
-                        <th scope="col" class="text-center">Foto</th>
+                        <th scope="col" class="text-center">COD USUARIO</th>
+                        <th scope="col" class="text-center">USUARIO</th>
+                        <th scope="col" class="text-center">FOTO</th>
+                        <th scope="col" class="text-center">PERFIL</th>
+                        <th scope="col" class="text-center">EMPLEADO</th>
+                        <th scope="col" class="text-center">Editar</th>
+                        <th scope="col" class="text-center">Eliminar</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><a href="<?php echo site_url('usuario/edit'); ?>"><i class="fas fa-edit"></i></a></td>
-                                <td><a href=""><i class="fas fa-trash"></i></a></td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td class="text-center"><img data-toggle="tooltip" data-placement="right" title="<img class='w-100' src='<?php echo base_url(); ?>assets/images/evidencias/evi3.jpg' />" src="../../assets/images/evidencias/evi3.jpg"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><a href="<?php echo site_url('usuario/edit'); ?>"><i class="fas fa-edit"></i></a></td>
-                                <td><a href=""><i class="fas fa-trash"></i></a></td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td class="text-center"><img data-toggle="tooltip" data-placement="right" title="<img class='w-100' src='<?php echo base_url(); ?>assets/images/evidencias/evi3.jpg' />" src="../../assets/images/evidencias/evi3.jpg"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><a href="<?php echo site_url('usuario/edit'); ?>"><i class="fas fa-edit"></i></a></td>
-                                <td><a href=""><i class="fas fa-trash"></i></a></td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td class="text-center"><img data-toggle="tooltip" data-placement="right" title="<img class='w-100' src='../../assets/images/evidencias/evi3.jpg' />" src="../../assets/images/evidencias/evi3.jpg"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><a href="<?php echo site_url('usuario/edit'); ?>"><i class="fas fa-edit"></i></a></td>
-                                <td><a href=""><i class="fas fa-trash"></i></a></td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td class="text-center"><img data-toggle="tooltip" data-placement="right" title="<img class='w-100' src='../../assets/images/evidencias/evi3.jpg' />" src="../../assets/images/evidencias/evi3.jpg"></td>
-                            </tr>
+                        <?php
+                                        $count = 0;
+                                        foreach ($Usuario as $Usuario) {
+                                            echo '
+                                              <tr>
+                                                <td>'.++$count.'</td>
+                                                <td class="text-center">'.$Usuario->COD_USUARIO.'</td>
+                                                <td class="text-center">'.$Usuario->USUARIO.'</td>
+                                                <td><img src="'.$Usuario->FOTO.'"></td>
+                                                <td class="text-center">'.$Usuario->NOMBRE.'</td>
+                                                <td class="text-center">'.$Usuario->NOMBRES.'</td>
+                                                <td class="text-center"><a href="'.site_url('Usuario/llenarCampos_Usuario/'.$Usuario->ID_USUARIO).'"><i class="fi fi-rr-edit"></i>Editar</a>
+                                                </td>
+                                                <td class="text-center"><a href="'.site_url('Usuario/eliminar_Usuario/'.$Usuario->ID_USUARIO).'"><i class="fi fi-rr-cross-circle"></i>Eliminar</a></td>
+                                              </tr>
+                                            ';
+                                        }
+                                    ?>
                         </tbody>
                     </table>
                 </div>
@@ -80,11 +63,11 @@
                         </nav>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-greenexcel"> <i class="mdi mdi-file-excel"></i>
-                            Exportar Excel</button>
-                        <button type="button" class="btn btn-dark" onClick='window.history.back()'> <i
-                                class="mdi mdi-keyboard-return"></i> Atras</button>
-                    </div>
+                            <button id="btnExportar"class="btn btn-greenexcel">
+                                    <i class="mdi mdi-file-excel"></i> Exportar datos a Excel
+                            </button>
+                                    <a href="<?php echo site_url('inicio'); ?>"><button type="button"  class="btn btn-dark" onClick='window.history.back()'> <i class="mdi mdi-keyboard-return"></i> Atras</button></a>
+                     </div>
                 </div>
             </div>
         </div>
