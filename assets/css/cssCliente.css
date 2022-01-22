@@ -1,0 +1,23 @@
+#idTablaCliente_filter label{
+    width: 100%;
+}
+#idTablaCliente_filter label input{
+    width: 90%;
+}
+#idTablaCliente_info{
+    padding: 0;
+}
+
+#idTablaSucursal_filter label{
+    width: 100%;
+}
+#idTablaSucursal_filter label input{
+    width: 90%;
+}
+#idTablaSucursal_info{
+    padding: 0;
+}
+
+
+
+

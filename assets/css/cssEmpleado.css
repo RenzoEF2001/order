@@ -1,0 +1,14 @@
+.paso2{
+    display: none;
+}
+
+#idTablaEmpleado_filter label{
+    width: 100%;
+}
+#idTablaEmpleado_filter label input{
+    width: 90%;
+}
+#idTablaEmpleado_info{
+    padding: 0;
+}
+
