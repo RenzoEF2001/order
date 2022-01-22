@@ -14,7 +14,6 @@
                                             <th scope="col" class="cbz">#</th>
                                         </b>
                                         <th scope="col" class="text-center">NOMBRE</th>
-                                        <th scope="col" class="text-center">Editar</th>
                                         <th scope="col" class="text-center">Eliminar</th>
 
                                     </tr>
@@ -27,8 +26,6 @@
                                               <tr>
                                                 <td>'.++$count.'</td>
                                                 <td class="text-center">'.$perfil->NOMBRE.'</td>
-                                                <td class="text-center"><a href="'.site_url('Usuario/llenarCampos_Usuario/'.$perfil->ID_PERFIL).'"><i class="fi fi-rr-edit"></i>Editar</a>
-                                                </td>
                                                 <td class="text-center"><a href="'.site_url('Perfil/eliminar_perfil/'.$perfil->ID_PERFIL).'"><i class="fi fi-rr-cross-circle"></i>Eliminar</a></td>
                                               </tr>
                                             ';
