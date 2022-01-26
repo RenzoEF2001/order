@@ -1,4 +1,8 @@
 class RefValidator {
+    constructor(){
+        this.configuration = null;
+        this.errorConteiner = null;
+    }
     /* 
         rules = {
             "name" : Nombre del campo(usado para identificar),
@@ -12,18 +16,27 @@ class RefValidator {
             }
         }
     */
-    validation(configuration, errorConteiner) {
-        let values = Object.values(configuration);
-        let rules;
+    validation(errorConteiner) {
+        let values = Object.assign({}, this.configuration)
+        values = Object.values(values);
+        let configuration2 = Object.assign({}, this.configuration)
+        configuration2 = Object.values(configuration2);
         let cont = 0;
         let validatedFields = [];
         let status = true;
         /** recorre segun cuantos campos haya en "values" */
-        for (let value of values) {
-            rules = value['rules'].split('|');
-            values[cont++]["rules"] = rules;
-            validatedFields.push(this.validate(value));
+        
+        for (let valor of configuration2) {
+            let modifiedConfiguration = Object.assign({}, values);
+            modifiedConfiguration = Object.values(modifiedConfiguration);
+            let rule = valor['rules'];
+            let ruleArray = rule.split('|');
+            modifiedConfiguration[cont++]["rules"] = ruleArray;
+            validatedFields.push(this.validate(valor));
+            
         }
+
+        
 
         errorConteiner.empty();
         for (let value of validatedFields) {
