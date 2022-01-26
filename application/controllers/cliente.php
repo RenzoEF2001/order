@@ -49,6 +49,22 @@ class Cliente extends CI_Controller {
                     'required' => 'El campo "%s" es requerido.'
                 )
             ),
+            array(
+                'field' => 'DIRECCION',
+                'label' => 'Direccion',
+                'rules' => 'required',
+                'errors'=> array(
+                    'required' => 'El campo "%s" es requerido.'
+                )
+            ),
+            array(
+                'field' => 'TELEFONO',
+                'label' => 'Telefono',
+                'rules' => 'required',
+                'errors'=> array(
+                    'required' => 'El campo "%s" de la sucursal es requerido.'
+                )
+            ),
         );
     }
     /*Cliente*/
