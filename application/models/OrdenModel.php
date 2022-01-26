@@ -8,6 +8,13 @@ class OrdenModel extends CI_Model
         $this->load->database();
     }
 
+    public function create($datos)
+    {
+        $query = $this->db->insert('tb_orden',$datos);
+        //mysqli_next_result( $this->db->conn_id );
+        return $query;
+    }
+
     public function getOrdenesCreadas()
     {
         $this->db->select('tb_orden.*, tb_cliente.*, tb_sucursal.*, tb_sucursal.DIRECCION AS DIRECCION_SUCURSAL ');
@@ -63,6 +70,22 @@ class OrdenModel extends CI_Model
         $this->db->where('COD_ORDEN', $codigoOrden);
         $status = $this->db->update('tb_orden'); 
         return $status;
+    }
+
+    public function callSpGenerateCode($nomenclatura)
+    {
+        $num = $this->getLast()['ID_ORDEN'];
+        ++$num;
+
+        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
+        mysqli_next_result( $this->db->conn_id );
+        return $query->row_array();
+
+    }
+
+    public function getLast()
+    {
+        return $res = $this->db->get('tb_orden')->last_row('array');
     }
 
 }
