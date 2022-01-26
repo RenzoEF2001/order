@@ -94,6 +94,14 @@ class ClienteModel extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function getSucursalPerCodigo($codigo)
+    {
+        $this->db->from('tb_sucursal');
+        $this->db->where('tb_sucursal.ESTADO', 1);
+        $this->db->where('tb_sucursal.COD_CLIENTE_SUCURSAL', $codigo);
+        return $this->db->get()->row_array();
+    }
+
     public function countSucuralesPerCliente($codigo)
     {
         $this->db->select('*');
