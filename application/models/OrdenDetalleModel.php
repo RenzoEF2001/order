@@ -8,6 +8,13 @@ class OrdenDetalleModel extends CI_Model
         $this->load->database();
     }
 
+    public function create($datos)
+    {
+        $query = $this->db->insert('tb_orden_detalle',$datos);
+        mysqli_next_result( $this->db->conn_id );
+        return $query;
+    }
+
     public function getPerOrden($codigo)
     {
         $this->db->select('tb_tipo_sistema.DESCRIPCION, tb_dispositivo.NOMBRE,  tb_orden_detalle.DESCRIPCION AS DESCRIPCION_PROBLEMA, tb_orden_detalle.COD_ORDEN_DETALLE');
@@ -29,5 +36,21 @@ class OrdenDetalleModel extends CI_Model
         $this->db->where('tb_orden_detalle.COD_ORDEN_DETALLE', $codigo);
         return  $this->db->get()->result_array();
     }
+
+    public function callSpGenerateCode($nomenclatura)
+    {
+        $num = $this->getLast()['ID_ORDEN_DETALLE'];
+        ++$num;
+        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
+        mysqli_next_result( $this->db->conn_id );
+        return $query->row_array();
+
+    }
+
+    public function getLast()
+    {
+        return $res = $this->db->get('tb_orden_detalle')->last_row('array');
+    }
+
 
 }
