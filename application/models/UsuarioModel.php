@@ -37,12 +37,18 @@ class UsuarioModel extends CI_Model
 
     public function callSpGenerateCode($nomenclatura)
     {
-        $cantidadRegistros = $this->db->count_all('tb_usuario');
+        $num = $this->getLast()['ID_USUARIO'];
+        ++$num;
 
-        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$cantidadRegistros')");
+        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
         mysqli_next_result( $this->db->conn_id );
         return $query->row_array();
 
+    }
+
+    public function getLast()
+    {
+        return $res = $this->db->get('tb_usuario')->last_row('array');
     }
 
 }
