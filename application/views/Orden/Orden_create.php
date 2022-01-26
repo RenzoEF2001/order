@@ -4,172 +4,196 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Generar nueva orden</h4>
-                        <form class="form-sample">
-                            <p class="card-description">Informacion de la orden</p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Cliente</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-control" name="cliente" id="clienteOrdenCreate">
-                                                <option value="-1">Seleccione un cliente</option>
-                                                <?php foreach($cliente as $valor): ?>
-                                                <option value="<?= $valor->COD_CLIENTE ?>"><?= $valor->RAZON_SOCIAL ?>
-                                                </option>
-                                                <?php endforeach; ?>
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Sucursal</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-control" name="sucursales" id="sucursalesOrdenCreate">
-                                                <option disabled selected value="-1">Primero seleccione un cliente
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Asunto</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                placeholder="Resumen del problema..." name="asunto" id="asunto" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-description">Informacion adicional</p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Remitente</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" placeholder="Nombre..."
-                                                name="remitente" id="remitente" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row justify-content-end">
-                                    <button id="btnAgregarTabla" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#modalAgregarOrdenCreate" class="btn btn-outline-primary"
-                                        style="display: flex;"><i class=" mdi mdi-plus-box "
-                                            style="display: flex;margin-right: 10px;"></i>Agregar detalles</button>
-                                </div>
-                            </div>
-                            <div class="card tablescroll">
-                                <table class="table table-hover" id="tablaOrdenCreate">
-                                    <thead>
-                                        <tr>
-                                            <b>
-                                                <th scope="col" class="cbz">#</th>
-                                            </b>
-                                            <th scope="col" class="cbz">Tipo Sistema</th>
-                                            <th scope="col" class="cbz">Dispositivo</th>
-                                            <th scope="col" class="cbz">Descripcion del Problema</th>
-                                            <th scope="col" class="cbz" hidden>Imagen</th>
-                                            <th scope="col" class="cbz">Editar</th>
-                                            <th scope="col" class="cbz">Eliminar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tablaBodyOrdenCreate">
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="form-group mt-5 mb-0">
-                                <div class="row justify-content-end">
-                                    <button id="" type="button" class="btn btn-gradient-primary btn-fw mr-2"
-                                        style="display: flex;"><i class="fi fi-rr-disk"
-                                            style="display: flex;margin-right: 10px;"></i>Generar Orden</button>
-                                </div>
-                            </div>
-                        </form>
+                        <h4 class="card-title">Asignacion de orden</h4>
+                        <hr>
+                        <div class="card tablescroll">
+                            <table class="table" id="tablaOrdenCreada">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="cbz">Codigo</th>
+                                        <th scope="col" class="cbz">Fecha</th>
+                                        <th scope="col" class="cbz">Hora</th>
+                                        <th scope="col" class="cbz">Asunto</th>
+                                        <th scope="col" class="cbz">Cliente</th>
+                                        <th scope="col" class="cbz">Sucursal</th>
+                                        <th scope="col" class="text-center">Ver Detalles</th>
+                                        <th scope="col" class="text-center">Estado</th>
+                                        <th scope="col" class="text-center">Tecnico</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($ordenescreadas as $valor): ?>
+                                    <tr>
+                                        <th><?= $valor['COD_ORDEN'] ?></th>
+                                        <td><?= $valor['FECHA_ORDEN'] ?></td>
+                                        <td><?= $valor['HORA_ORDEN'] ?></td>
+                                        <td
+                                            style="max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            <?= $valor['ASUNTO'] ?></td>
+                                        <td><?= $valor['RAZON_SOCIAL'] ?></td>
+                                        <td
+                                            style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            <?= $valor['DIRECCION_SUCURSAL'] ?></td>
+                                        <td class="text-center"><button type="button"
+                                                class="btnDetallesOrdenCreada btn btn-outline btn-rounded btn-icon"
+                                                data-codigo="<?= $valor['COD_ORDEN'] ?>"><i
+                                                    class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
+                                        <td class="text-center"><label class="badge badge-danger">CREADA</label></td>
+                                        <td class="text-center"><button
+                                                class="btnAsignarOrdenCreada btn btn-inverse-primary btn-sm" data-codigo="<?= $valor['COD_ORDEN'] ?>">Asignar</button></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
-
-<div class="modal fade" id="modalAgregarOrdenCreate" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="modalOrdenCreada" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row">
+                <div class="row-fluid">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div id="alertaOrdenCreate" hidden>
-
-                                </div>
-                                <h4 class="card-title">Agregar detalles de ordenes</h4>
+                                <h4 class="card-title" id="codigoOrdenCreada">CODIGO:</h4>
+                                <p class="card-description">Informacion de la orden</p>
                                 <div class="row">
-                                    <div class="col col-md-12">
-                                        <div class="form-group">
-                                            <label id="lblTipoSistemaOrdenCreate" class="col-form-label">Tipo
-                                                Sistema</label>
-                                            <select name="tiposistema" id="comboTipoSistemaOrdenCreate"
-                                                class=" form-control">
-                                                <option value="-1" selected>Seleccione un tipo de sistema</option>
-                                                <?php foreach($tiposistema as $valor): ?>
-                                                <option value="<?= $valor['COD_TIPOSISTEMA'] ?>">
-                                                    <?= $valor['DESCRIPCION'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class=" row">
-                                    <div class="col col-md-12">
-                                        <div class="form-group">
-                                            <label id="lblDispositivoOrdenCreate"
-                                                class="col-form-label">Dispositivo</label>
-                                            <select name="dispositivo" id="comboDispositivoOrdenCreate"
-                                                class="form-control">
-                                                <option value="-1" selected disabled>Primero seleccione un tipo de
-                                                    sistema</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class=" row">
-                                    <div class="col col-md-12">
-                                        <div class="form-group">
-                                            <label id="lblDescripcionProblemaOrdenCreate"
-                                                class="col-form-label">Descripcion del
-                                                problema</label>
-                                            <textarea class="form-control" name="descripcion"
-                                                id="txaDescripcionProblemaOrdenCreate" cols="30" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label id="lblImagenOrdenCreate">Subir Imagen</label>
-                                            <input type="file" name="imagen" id="txtImagenOrdenCreate"
-                                                class="file-upload-default" multiple>
-                                            <div class="input-group col-xs-12">
-                                                <input type="text" id="txtImagenNombreOrdenCreate"
-                                                    class="form-control file-upload-info" disabled
-                                                    placeholder="Imagen...">
-                                                <span class="input-group-append">
-                                                    <button class="file-upload-browse btn btn-gradient-primary"
-                                                        type="button">Upload</button>
-                                                </span>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Cliente</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="cliente"
+                                                    id="clienteOrdenCreada" disabled />
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Sucursal</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="sucursal"
+                                                    id="sucursalOrdenCreada" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Asunto</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="asunto"
+                                                    id="asuntoOrdenCreada" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="card-description">Informacion adicional</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Remitente</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="remitente"
+                                                    id="remitenteOrdenCreada" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card tablescroll">
+                                    <table class="table table-hover" id="tablaModal1OrdenCreada">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="cbz">Codigo</th>
+                                                <th scope="col" class="cbz">Tipo Sistema</th>
+                                                <th scope="col" class="cbz">Dispositivo</th>
+                                                <th scope="col" class="cbz">Descripcion del Problema</th>
+                                                <th scope="col" class="cbz">Ver Detalles</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablaModalBody1OrdenCreada">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDetallesOrdenCreada" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Detalles de ordenes</h4>
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Tipo Sistema</label>
+                                            <input type="text" name="" id="tiposistemaOrdenCreada" class="form-control"
+                                                value="Un tipo de sistema" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Dispositivo</label>
+                                            <input type="text" name="" id="dispositivoOrdenCreada" class="form-control"
+                                                value="Camara" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Imagenes</label>
+                                            <div id="carouselExampleControls" class="carousel slide"
+                                                data-ride="carousel">
+                                                <div id="carruselOrdenCreada" class="carousel-inner">
+
+                                                </div>
+                                                <a class="carousel-control-prev" href="#carouselExampleControls"
+                                                    role="button" data-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next" href="#carouselExampleControls"
+                                                    role="button" data-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Descripcion del problema</label>
+                                            <textarea disabled class="form-control-plaintext" name=""
+                                                id="descripcionProblemaOrdenCreada" cols="30"
+                                                rows="5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel eos dolorem deleniti quibusdam, sapiente nisi mollitia corporis animi iusto consectetur unde repellat illum cupiditate pariatur accusantium, eaque libero ipsum voluptatem.</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -179,8 +203,61 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="guardarOrdenCreate" type="button" class="btn btn-primary">Agregar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button id="btnAtrasOrdenCreada" type="button"
+                    class="btn btn-gradient-dark btn-icon-text d-flex align-items-center"><i
+                        class="mdi mdi-arrow-left  btn-icon-prepend"></i>Atras
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAsignarOrdenCreada" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Asignacion de tecnico</h4>
+                                <hr>
+                                <p class="card-description">Asignar a la orden: <strong data-codigo="" id="codigoAsignarOrdenCreada"></strong></p>
+                                <div class="card tablescroll">
+                                    <table class="table" id="tablaAsignarOrdenCreada">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="cbz">#</th>
+                                                <th scope="col" class="cbz">Codigo</th>
+                                                <th scope="col" class="cbz">Nombre</th>
+                                                <th scope="col" class="cbz">Apellido</th>
+                                                <th scope="col" class="cbz">Numero Documento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablaBodyAsignarOrdenCreada">
+                                            <?php $cont=0; ?>
+                                            <?php foreach($empleado as $valor): ?>
+                                                <tr style="cursor: pointer;">
+                                                    <td><?= ++$cont ?></td>
+                                                    <td><?= $valor['COD_EMPLEADO'] ?></td>
+                                                    <td><?= $valor['NOMBRES'] ?></td>
+                                                    <td><?= $valor['APELLIDOS'] ?></td>
+                                                    <td><?= $valor['NUM_DOC_IDENTIDAD'] ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnAsignarConfirmarOrdenCreada" class="btn btn-gradient-primary btn-icon-text"><i class="mdi mdi-account-check btn-icon-prepend"></i> Asignar </button>
             </div>
         </div>
     </div>
