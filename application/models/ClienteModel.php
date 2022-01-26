@@ -135,9 +135,10 @@ class ClienteModel extends CI_Model
 
     public function callSpGenerateCodeCliente($nomenclatura)
     {
-        $cantidadRegistros = $this->db->count_all('tb_cliente');
+        $num = $this->getLast('tb_cliente')['ID_CLIENTE'];
+        ++$num;
 
-        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$cantidadRegistros')");
+        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
         mysqli_next_result( $this->db->conn_id );
         return $query->row_array();
 
@@ -145,12 +146,18 @@ class ClienteModel extends CI_Model
 
     public function callSpGenerateCodeSucursal($nomenclatura)
     {
-        $cantidadRegistros = $this->db->count_all('tb_sucursal');
+        $num = $this->getLast('tb_sucursal')['ID_SUCURSAL'];
+        ++$num;
 
-        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$cantidadRegistros')");
+        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
         mysqli_next_result( $this->db->conn_id );
         return $query->row_array();
 
+    }
+
+    public function getLast($table)
+    {
+        return $res = $this->db->get($table)->last_row('array');
     }
     
 }
