@@ -22,6 +22,7 @@
                         <th scope="col" class="text-center">COD USUARIO</th>
                         <th scope="col" class="text-center">USUARIO</th>
                         <th scope="col" class="text-center">FOTO</th>
+                        <th scope="col" class="text-center">Ejemplo</th>
                         <th scope="col" class="text-center">PERFIL</th>
                         <th scope="col" class="text-center">EMPLEADO</th>
                         <th scope="col" class="text-center">Editar</th>
@@ -37,7 +38,7 @@
                                                 <td>'.++$count.'</td>
                                                 <td class="text-center">'.$Usuario->COD_USUARIO.'</td>
                                                 <td class="text-center">'.$Usuario->USUARIO.'</td>
-                                                <td><img src="'.$Usuario->FOTO.'"></td>
+                                                <td> <center><img  src="'.base_url().'assets/images/'.$Usuario->FOTO.'"/></center></td>
                                                 <td class="text-center">'.$Usuario->NOMBRE.'</td>
                                                 <td class="text-center">'.$Usuario->NOMBRES.'</td>
                                                 <td class="text-center"><a href="'.site_url('Usuario/llenarCampos_Usuario/'.$Usuario->ID_USUARIO).'"><i class="fi fi-rr-edit"></i>Editar</a>

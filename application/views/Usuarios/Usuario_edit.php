@@ -66,7 +66,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Imagen de perfil</label>
                                                 <div class="col-sm-9">
-                                                    <input type="file" name="FOTO" value="<?=$usuario[0]["FOTO"]?>" class="form-control" placeholder="98403392" />
+                                                    <input type="file" REQUIRED name="FOTO" value="<?=$usuario[0]["FOTO"]?>" class="form-control" placeholder="98403392" />
                                                 </div>
                                             </div>
                                         </div>
