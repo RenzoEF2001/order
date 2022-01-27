@@ -45,32 +45,32 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fas fa-edit"></i></a></td>
-                                            <td><a href=""><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                            <td><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                             <td>Mark</td>
                                             <td>Otto</td>
                                             <td>@mdo</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">2</th>
-                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fas fa-edit"></i></a></td>
-                                            <td><a href=""><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                            <td><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                             <td>Mark</td>
                                             <td>Otto</td>
                                             <td>@mdo</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">3</th>
-                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fas fa-edit"></i></a></td>
-                                            <td><a href=""><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                            <td><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                             <td>Jacob</td>
                                             <td>Thornton</td>
                                             <td>@fat</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">4</th>
-                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fas fa-edit"></i></a></td>
-                                            <td><a href=""><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="../Cliente/Cliente_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                            <td><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                             <td>Larry</td>
                                             <td>@twitter</td>
                                         </tr>

@@ -26,8 +26,8 @@
                         <th scope="col" class="text-center">ELIMINAR</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <?php
+    
+                                      <?php
                                         $count = 0;
                                         foreach ($roles as $key=> $value) {
                                             echo '

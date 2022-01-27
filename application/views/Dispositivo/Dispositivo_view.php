@@ -266,25 +266,16 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fas fa-edit"></i></a></td>
-                                        <td class="text-center"><a href=""><i class="fas fa-trash"></i></a></td>
+                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                        <td class="text-center"><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                         <td class="text-center"><button type="button" class="btn btn-outline btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
                                         <td class="w-25">CAMARA IP</td>
                                         <td><img data-toggle="tooltip" data-placement="right" title="<img class='w-100' src='../../assets/images/evidencias/evi3.jpg' />" src="../../assets/images/evidencias/evi3.jpg"></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fas fa-edit"></i></a></td>
-                                        <td class="text-center"><a href=""><i class="fas fa-trash"></i></a></td>
-                                        <td class="text-center"><button type="button" class="btn btn-outline btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
-
-                                        <td class="w-25">CAMARA IP</td>
-                                        <td><img data-toggle="tooltip" data-placement="right" title="<img class='w-100' src='../../assets/images/evidencias/evi3.jpg' />" src="../../assets/images/evidencias/evi3.jpg"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fas fa-edit"></i></a></td>
-                                        <td class="text-center"><a href=""><i class="fas fa-trash"></i></a></td>
+                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                        <td class="text-center"><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                         <td class="text-center"><button type="button" class="btn btn-outline btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
 
                                         <td class="w-25">CAMARA IP</td>
@@ -292,8 +283,8 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fas fa-edit"></i></a></td>
-                                        <td class="text-center"><a href=""><i class="fas fa-trash"></i></a></td>
+                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                        <td class="text-center"><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                         <td class="text-center"><button type="button" class="btn btn-outline btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
 
                                         <td class="w-25">CAMARA IP</td>
@@ -301,8 +292,8 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fas fa-edit"></i></a></td>
-                                        <td class="text-center"><a href=""><i class="fas fa-trash"></i></a></td>
+                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                        <td class="text-center"><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                         <td class="text-center"><button type="button" class="btn btn-outline btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
 
                                         <td class="w-25">CAMARA IP</td>
@@ -310,8 +301,17 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fas fa-edit"></i></a></td>
-                                        <td class="text-center"><a href=""><i class="fas fa-trash"></i></a></td>
+                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                        <td class="text-center"><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
+                                        <td class="text-center"><button type="button" class="btn btn-outline btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
+
+                                        <td class="w-25">CAMARA IP</td>
+                                        <td><img data-toggle="tooltip" data-placement="right" title="<img class='w-100' src='../../assets/images/evidencias/evi3.jpg' />" src="../../assets/images/evidencias/evi3.jpg"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td class="text-center"><a href="../Dispositivo/Dispositivo_edit.html"><i class="fi fi-rr-edit"></i></a></td>
+                                        <td class="text-center"><a href=""><i class="fi fi-rr-cross-circle"></i></a></td>
                                         <td class="text-center"><button type="button" class="btn btn-outline btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
 
                                         <td class="w-25">CAMARA IP</td>
