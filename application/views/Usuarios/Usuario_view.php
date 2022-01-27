@@ -22,7 +22,6 @@
                         <th scope="col" class="text-center">COD USUARIO</th>
                         <th scope="col" class="text-center">USUARIO</th>
                         <th scope="col" class="text-center">FOTO</th>
-                        <th scope="col" class="text-center">Ejemplo</th>
                         <th scope="col" class="text-center">PERFIL</th>
                         <th scope="col" class="text-center">EMPLEADO</th>
                         <th scope="col" class="text-center">Editar</th>
