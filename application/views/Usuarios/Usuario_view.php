@@ -37,7 +37,7 @@
                                                 <td>'.++$count.'</td>
                                                 <td class="text-center">'.$Usuario->COD_USUARIO.'</td>
                                                 <td class="text-center">'.$Usuario->USUARIO.'</td>
-                                                <td> <center><img  src="'.base_url().'assets/images/'.$Usuario->FOTO.'"/></center></td>
+                                                <td> <center><img  src="'.base_url().'assets/images/usuarios/'.$Usuario->FOTO.'"/></center></td>
                                                 <td class="text-center">'.$Usuario->NOMBRE.'</td>
                                                 <td class="text-center">'.$Usuario->NOMBRES.'</td>
                                                 <td class="text-center"><a href="'.site_url('Usuario/llenarCampos_Usuario/'.$Usuario->ID_USUARIO).'"><i class="fi fi-rr-edit"></i>Editar</a>

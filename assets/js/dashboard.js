@@ -1,10 +1,9 @@
-//let bntcerrarbaner = document.getElementById('bannerClose');
+let bntcerrarbaner = document.getElementById('bannerClose');
 let banner = document.getElementById('proBanner');
-/*
 bntcerrarbaner.addEventListener('click',(e)=>{
   banner.classList.add('d-none');
 });
-*/
+
 (function($) {
   'use strict';
    $(function() {

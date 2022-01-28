@@ -6727,11 +6727,9 @@ a.close.disabled {
     max-width: 300px; } }
 
 @media (min-width: 992px) {
-  .modal-lg{
-    max-width: 800px;
-  }
+  .modal-lg,
   .modal-xl {
-    max-width: 1140px; } }
+    max-width: 90%; } }
 
 @media (min-width: 1200px) {
   .modal-xl {
@@ -13611,13 +13609,4 @@ input[type=number] { -moz-appearance:textfield; }
 }
 .flt{
   margin-left: 10px;
-}
-
-#contenedorDivAux{
-    width: 100% ;
-}
-
-.page-item.active .page-link {
-  background-color: #B66DFF !important;
-  border: 1px solid #B66DFF;
 }

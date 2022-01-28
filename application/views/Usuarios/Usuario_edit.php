@@ -5,7 +5,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Editar Usuario</h4>
-                                <form class="form-sample" method="post" action="<?php echo site_url('Usuario/EditUsu') ?>">
+                                <form class="form-sample" method="post" enctype="multipart/form-data" action="<?php echo site_url('Usuario/EditUsu') ?>">
                                     <p class="card-description">Informacion del usuario</p>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -66,7 +66,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Imagen de perfil</label>
                                                 <div class="col-sm-9">
-                                                    <input type="file" REQUIRED name="FOTO" value="<?=$usuario[0]["FOTO"]?>" class="form-control" placeholder="98403392" />
+                                                    <input type="file" name="FOTO" class="form-control" placeholder="98403392" />
                                                 </div>
                                             </div>
                                         </div>
