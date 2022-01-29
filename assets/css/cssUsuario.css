@@ -1,0 +1,9 @@
+#idTablaUsuario_filter label{
+    width: 100%;
+}
+#idTablaUsuario_filter label input{
+    width: 90%;
+}
+#idTablaUsuario_info{
+    padding: 0;
+}

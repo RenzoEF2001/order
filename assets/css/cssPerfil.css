@@ -1,0 +1,9 @@
+#idTablaPerfil_filter label{
+    width: 100%;
+}
+#idTablaPerfil_filter label input{
+    width: 90%;
+}
+#idTablaPerfil_info{
+    padding: 0;
+}

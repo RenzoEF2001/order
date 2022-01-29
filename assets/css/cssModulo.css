@@ -1,0 +1,9 @@
+#idTablaModulo_filter label{
+    width: 100%;
+}
+#idTablaModulo_filter label input{
+    width: 90%;
+}
+#idTablaModulo_info{
+    padding: 0;
+}
