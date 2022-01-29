@@ -20,76 +20,76 @@ class Empleado extends CI_Controller
                 'field' => 'nombre',
                 'label' => 'Nombre',
                 'rules' => 'required',
-                'errors'=> array(
+                'errors' => array(
                     'required' => 'El campo "%s" es requerido.',
-                )
+                ),
             ),
             array(
                 'field' => 'apellido',
                 'label' => 'Apellido',
                 'rules' => 'required',
-                'errors'=> array(
+                'errors' => array(
                     'required' => 'El campo "%s" es requerido.',
-                )
+                ),
             ),
             array(
                 'field' => 'correo',
                 'label' => 'Correo',
                 'rules' => 'valid_email',
-                'errors'=> array(
-                    'valid_email' => 'El "%s" es invalido'
-                )
+                'errors' => array(
+                    'valid_email' => 'El "%s" es invalido',
+                ),
             ),
             array(
                 'field' => 'telefono',
                 'label' => 'Telefono',
                 'rules' => 'numeric',
-                'errors'=> array(
-                    'numeric' => 'El campo "%s" debe tener solo numeros.'
-                )
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                ),
             ),
             array(
                 'field' => 'segundoTelefono',
                 'label' => 'Segundo Telefono',
                 'rules' => 'numeric',
-                'errors'=> array(
-                    'numeric' => 'El campo "%s" debe tener solo numeros.'
-                )
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                ),
             ),
             array(
                 'field' => 'telefonoFijo',
                 'label' => 'Telefono Fijo',
                 'rules' => 'numeric',
-                'errors'=> array(
-                    'numeric' => 'El campo "%s" debe tener solo numeros.'
-                )
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                ),
             ),
             array(
                 'field' => 'usuario',
                 'label' => 'Usuario',
                 'rules' => 'is_unique[tb_usuario.USUARIO]|max_length[20]|required',
-                'errors'=> array(
+                'errors' => array(
                     'is_unique' => 'Ya existe un usuario con el mismo nombre.',
                     'max_length' => 'Su nombre de usuario no puede tener mas de 20 caracteres.',
-                    'required' => 'El campo "%s" es requerido.'
-                )
+                    'required' => 'El campo "%s" es requerido.',
+                ),
             ),
             array(
                 'field' => 'contraseña',
                 'label' => 'Contraseña',
                 'rules' => 'required',
-                'errors'=> array(
-                    'required' => 'El campo "%s" es requerido.'
-                )
+                'errors' => array(
+                    'required' => 'El campo "%s" es requerido.',
+                ),
             ),
             array(
                 'field' => 'perfil',
                 'label' => 'Perfil',
                 'rules' => 'required',
-                'errors'=> array(
-                    'required' => 'El campo "%s" es requerido.'
-                )
-            )
+                'errors' => array(
+                    'required' => 'El campo "%s" es requerido.',
+                ),
+            ),
         );
     }
 
@@ -98,13 +98,13 @@ class Empleado extends CI_Controller
         $datosEmpleado = $this->EmpleadoModel->get();
 
         $data = [
-            "empleado" => $datosEmpleado
+            "empleado" => $datosEmpleado,
         ];
 
         $this->load->view('cabecera');
         $this->load->view('Empleado/Empleado_view', $data);
         $this->load->view('footer');
-        
+
     }
 
     public function create()
@@ -113,11 +113,11 @@ class Empleado extends CI_Controller
         $datosPerfil = $this->PerfilModel->get();
         $data = [
             "tipoidentificacion" => $datosTipoIdentificacion,
-            "perfil" => $datosPerfil
+            "perfil" => $datosPerfil,
         ];
 
         $this->load->view('cabecera');
-        $this->load->view('Empleado/Empleado_create',$data);
+        $this->load->view('Empleado/Empleado_create', $data);
         $this->load->view('footer');
     }
 
@@ -130,35 +130,35 @@ class Empleado extends CI_Controller
 
     public function save()
     {
-        
+
         if ($this->input->post("tipoIdentificacion") == 1) {
             $nuevaRegla = array(
-                                'field' => 'numeroIdentificacion',
-                                'label' => 'Numero de Identificacion',
-                                'rules' => 'numeric|exact_length[8]',
-                                'errors'=> array(
-                                    'numeric' => 'El campo "%s" debe tener solo numeros.',
-                                    'exact_length' => 'Su DNI debe en el campo "%s" tener 8 digitos'
-                                )
-                            );
+                'field' => 'numeroIdentificacion',
+                'label' => 'Numero de Identificacion',
+                'rules' => 'numeric|exact_length[8]',
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                    'exact_length' => 'Su DNI debe en el campo "%s" tener 8 digitos',
+                ),
+            );
             array_push($this->rules, $nuevaRegla);
         }
         if ($this->input->post("tipoIdentificacion") == 2) {
             $nuevaRegla = array(
-                                'field' => 'numeroIdentificacion',
-                                'label' => 'Numero de Identificacion',
-                                'rules' => 'exact_length[12]',
-                                'errors'=> array(
-                                    'numeric' => 'El campo "%s" debe tener solo numeros.',
-                                    'exact_length' => 'Su Documento de Extrajeria en el campo "%s" debe tener 12 digitos'
-                                )
-                            );
+                'field' => 'numeroIdentificacion',
+                'label' => 'Numero de Identificacion',
+                'rules' => 'exact_length[12]',
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                    'exact_length' => 'Su Documento de Extrajeria en el campo "%s" debe tener 12 digitos',
+                ),
+            );
             array_push($this->rules, $nuevaRegla);
         }
 
         $this->form_validation->set_rules($this->rules);
 
-        if($this->form_validation->run() == FALSE){
+        if ($this->form_validation->run() == false) {
             return $this->create();
         }
 
@@ -179,6 +179,7 @@ class Empleado extends CI_Controller
             "estado" => 1,
             "fk_tipoidentificacion" => $this->input->post("tipoIdentificacion"),
         ];
+
         $resultado = $this->EmpleadoModel->create($datosEmpleado);
 
         $ultimoInsertado = $this->EmpleadoModel->getLast();
@@ -189,11 +190,21 @@ class Empleado extends CI_Controller
             "cod_usuario" => $this->generateCodeUsuario("USU-"),
             "usuario" => $this->input->post("usuario"),
             "contraseña" => $hash,
-            "foto" => $this->input->post("imagen"),
+            "foto" => 'sin_foto.png',
             "estado" => 1,
             "fk_perfil" => $this->input->post("perfil"),
             "fk_empleado" => $ultimoInsertado["ID_EMPLEADO"],
         ];
+
+        if (isset($_FILES['imagen'])) {
+            if ($_FILES['imagen']['name'] != "") {
+                $nombreImagen = $this->uploadImage($datosUsuario["cod_usuario"]);
+                $datosUsuario["foto"] = $nombreImagen;
+            } else {
+                $datosUsuario["foto"] = "sin_imagen.png";
+            }
+        }
+
         $resultado2 = $this->UsuarioModel->create($datosUsuario);
 
         //crear validacion con $resultado
@@ -209,11 +220,11 @@ class Empleado extends CI_Controller
         $data = [
             "empleado" => $datosEmpleado,
             "tipoidentificacion" => $datosTipoIdentificacion,
-            "perfil" => $datosPerfil
+            "perfil" => $datosPerfil,
         ];
 
-        $this->load->view('cabecera');  
-        $this->load->view('Empleado/Empleado_edit',$data);
+        $this->load->view('cabecera');
+        $this->load->view('Empleado/Empleado_edit', $data);
         $this->load->view('footer');
     }
 
@@ -221,35 +232,35 @@ class Empleado extends CI_Controller
     {
         if ($this->input->post("tipoIdentificacion") == 1) {
             $nuevaRegla = array(
-                                'field' => 'numeroIdentificacion',
-                                'label' => 'Numero de Identificacion',
-                                'rules' => 'numeric|exact_length[8]',
-                                'errors'=> array(
-                                    'numeric' => 'El campo "%s" debe tener solo numeros.',
-                                    'exact_length' => 'Su DNI debe en el campo "%s" tener 8 digitos'
-                                )
-                            );
+                'field' => 'numeroIdentificacion',
+                'label' => 'Numero de Identificacion',
+                'rules' => 'numeric|exact_length[8]',
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                    'exact_length' => 'Su DNI debe en el campo "%s" tener 8 digitos',
+                ),
+            );
             array_push($this->rules, $nuevaRegla);
         }
         if ($this->input->post("tipoIdentificacion") == 2) {
             $nuevaRegla = array(
-                                'field' => 'numeroIdentificacion',
-                                'label' => 'Numero de Identificacion',
-                                'rules' => 'exact_length[12]',
-                                'errors'=> array(
-                                    'numeric' => 'El campo "%s" debe tener solo numeros.',
-                                    'exact_length' => 'Su Documento de Extrajeria en el campo "%s" debe tener 12 digitos'
-                                )
-                            );
+                'field' => 'numeroIdentificacion',
+                'label' => 'Numero de Identificacion',
+                'rules' => 'exact_length[12]',
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                    'exact_length' => 'Su Documento de Extrajeria en el campo "%s" debe tener 12 digitos',
+                ),
+            );
             array_push($this->rules, $nuevaRegla);
         }
 
         $this->form_validation->set_rules($this->rules);
 
-        if($this->form_validation->run() == FALSE){
+        if ($this->form_validation->run() == false) {
             return $this->actualizar($this->input->post("codigo"));
         }
-        
+
         $codigo = $this->input->post("codigo");
         $datosEmpleado = [
             "nombres" => $this->input->post("nombre"),
@@ -267,7 +278,7 @@ class Empleado extends CI_Controller
             "estado" => 1,
             "fk_tipoidentificacion" => $this->input->post("tipoIdentificacion"),
         ];
-        $this->EmpleadoModel->update($datosEmpleado,$codigo);
+        $this->EmpleadoModel->update($datosEmpleado, $codigo);
 
         redirect('empleado/');
     }
@@ -285,13 +296,13 @@ class Empleado extends CI_Controller
         $typeDelete = $this->input->post('typeDelete');
         $status = false;
 
-        if($typeDelete == "cascada"){
+        if ($typeDelete == "cascada") {
             $res = $this->UsuarioModel->deteleLogicalPerEmpleado($codigo);
-            if($res){
+            if ($res) {
                 $status = $this->EmpleadoModel->deleteLogical($codigo);
             }
         }
-        if($typeDelete == "normal"){
+        if ($typeDelete == "normal") {
             $status = $this->EmpleadoModel->deleteLogical($codigo);
         }
 
@@ -308,6 +319,19 @@ class Empleado extends CI_Controller
     {
         $res = $this->UsuarioModel->callSpGenerateCode($nomenclatura);
         return $res['CODIGO'];
+    }
+
+    public function uploadImage($name_image)
+    {
+        $name = 'imagen';
+        $config['upload_path'] = 'assets/images/usuarios';
+        $config['file_name'] = $name_image;
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_width'] = '1024';
+        $config['overwrite'] = true;
+        $this->load->library('upload', $config);
+        $this->upload->do_upload($name);
+        return $this->upload->data()['file_name'];
     }
 
 }

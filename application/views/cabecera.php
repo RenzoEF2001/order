@@ -17,6 +17,9 @@
     <!-- Otros -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssEmpleado.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssCliente.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssUsuario.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssModulo.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssPerfil.css">
 
 
 </head>

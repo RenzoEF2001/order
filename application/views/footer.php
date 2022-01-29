@@ -59,6 +59,9 @@
 <script src="<?php echo base_url(); ?>assets/js/page_orden_creadas.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_orden_pendiente.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_orden_atendida.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_usuario_view.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_usuario_modulo.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_perfil_view.js"></script>
 <!-- End custom js for this page -->
 
 <script>
