@@ -147,31 +147,4 @@ $(document).ready(function () {
     
 
 });
-/*
-let btnContinuar = document.getElementById("btnContinuar");
-let btnAtras = document.getElementById("btnAtras");
-let btnCrear = document.getElementById("btnCrear");
-let paso1 = document.getElementById("paso1");
-let paso2 = document.getElementById("paso2");
 
-window.onload = function() {
-    paso2.style = "display: none";
-    btnCrear.disabled = true;
-};
-
-btnContinuar.addEventListener("click", e => {
-    btnAtras.hidden = false;
-    btnContinuar.hidden = true;
-    paso1.style = "display: none";
-    paso2.style = "display: block";
-    btnCrear.disabled = false;
-});
-
-btnAtras.addEventListener("click", e => {
-    btnAtras.hidden = true;
-    btnContinuar.hidden = false;
-    paso1.style = "display: block";
-    paso2.style = "display: none";
-    btnCrear.disabled = true;
-});
-*/
