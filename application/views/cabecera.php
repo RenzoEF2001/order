@@ -1,3 +1,10 @@
+<?php 
+
+if (!isset($_SESSION['user'])) {
+    redirect('Welcome/');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -184,9 +191,12 @@
                                 <li class="nav-item"> <a class="nav-link"
                                         href="<?php echo site_url('usuario') ?>">Visualizar usuarios</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="<?php echo site_url('usuario/perfil') ?>">Viasualizar perfiles</a></li>
+                                        href="<?php echo site_url('Perfil/catalogo_perfiles') ?>">Visualizar
+                                        perfiles</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="<?php echo site_url('usuario/rol') ?>">Asignar Roles</a></li>
+                                        href="<?php echo site_url('roles/index') ?>">Asignar Roles</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="<?php echo site_url('roles/Catalogo_rol') ?>">Visializar Roles</a></li>
                             </ul>
                         </div>
                     </li>
