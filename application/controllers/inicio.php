@@ -17,7 +17,7 @@ class Inicio extends CI_Controller {
         $trabajando = $this->OrdenModel->getCantidadOrdenes_Mes(3, date('n', time()));
 
         $data = [
-            "creadas" => $creadas,
+            "creada" => $creadas,
             "pendiente" => $pendiente,
             "trabajando" => $trabajando
         ];
