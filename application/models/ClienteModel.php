@@ -11,6 +11,13 @@ class ClienteModel extends CI_Model
     public function create_cli($datos)
     {
         $query = $this->db->insert('tb_cliente', $datos);
+
+        $idCreada = $this->db->insert_id();
+
+        $this->db->set('COD_CLIENTE', $this->callSpGenerateCode('CLI-', $idCreada)['CODIGO']);
+        $this->db->where('ID_CLIENTE', $idCreada);
+        $this->db->update('tb_cliente'); 
+
         mysqli_next_result( $this->db->conn_id );
         return $query;
     }
@@ -20,6 +27,17 @@ class ClienteModel extends CI_Model
         $this->db->select('*');
         $this->db->from('tb_cliente');
         $this->db->where('ESTADO', 1);
+        return $this->db->get()->result();
+    }
+
+    public function getCliente_Sucursal()
+    {
+        $this->db->select('tb_cliente.COD_CLIENTE, tb_cliente.RAZON_SOCIAL, COUNT(tb_sucursal.ID_SUCURSAL)');
+        $this->db->from('tb_sucursal');
+        $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
+        $this->db->where('tb_cliente.ESTADO', 1);
+        $this->db->where('tb_sucursal.ESTADO', 1);
+        $this->db->group_by("tb_cliente.ID_CLIENTE");
         return $this->db->get()->result();
     }
 
@@ -47,6 +65,12 @@ class ClienteModel extends CI_Model
     public function create_sucu($datossucu)
     {
         $query = $this->db->insert('tb_sucursal', $datossucu);
+        $idCreada = $this->db->insert_id();
+
+        $this->db->set('COD_CLIENTE_SUCURSAL', $this->callSpGenerateCode('SUC-', $idCreada)['CODIGO']);
+        $this->db->where('ID_SUCURSAL', $idCreada);
+        $this->db->update('tb_sucursal'); 
+
         mysqli_next_result( $this->db->conn_id );
         return $query;
     }
@@ -80,10 +104,6 @@ class ClienteModel extends CI_Model
         $this->db->update('tb_sucursal', $datossucu);
     }
 
-    /* 
-        Usado para traer las sucursales segun el codigo del cliente, no es necesario validar
-        si el estado del cliente es 1 pero si el de las sucursales
-    */
     public function getSucursalPerCliente($codigo)
     {
         $this->db->select('*');
@@ -141,26 +161,11 @@ class ClienteModel extends CI_Model
         return $status;
     }
 
-    public function callSpGenerateCodeCliente($nomenclatura)
+    public function callSpGenerateCode($nomenclatura, $num)
     {
-        $num = $this->getLast('tb_cliente')['ID_CLIENTE'];
-        ++$num;
-
         $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
         mysqli_next_result( $this->db->conn_id );
         return $query->row_array();
-
-    }
-
-    public function callSpGenerateCodeSucursal($nomenclatura)
-    {
-        $num = $this->getLast('tb_sucursal')['ID_SUCURSAL'];
-        ++$num;
-
-        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
-        mysqli_next_result( $this->db->conn_id );
-        return $query->row_array();
-
     }
 
     public function getLast($table)
