@@ -75,9 +75,15 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
+	/*
 	'hostname' => '107.180.41.250',
 	'username' => 'clubtec',
 	'password' => 'ULN*U0jykVcd',
+	'database' => 'clubtec',
+	*/
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'clubtec',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
