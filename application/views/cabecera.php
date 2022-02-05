@@ -1,7 +1,16 @@
-<?php 
+<?php
+
+$dataUser = null;
 
 if (!isset($_SESSION['user'])) {
     redirect('Welcome/');
+} else {
+    $dataUser = $_SESSION['user'];
+    // echo '<br>';
+    // echo '<br>';
+    // echo '<br>';
+    // echo '<pre>';
+    // print_r($dataUser);
 }
 
 ?>
@@ -17,18 +26,20 @@ if (!isset($_SESSION['user'])) {
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.0.1/datatables.min.css" />
     <!-- Otros -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssReporte.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssEmpleado.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssCliente.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssUsuario.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssModulo.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssPerfil.css">
-
-
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssOrden.css">
 </head>
 
 <body class="sidebar-icon-only">
@@ -63,19 +74,19 @@ if (!isset($_SESSION['user'])) {
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
                             aria-expanded="false">
                             <div class="nav-profile-img">
-                                <img src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="image">
+                                <img src="<?php echo base_url(); ?>assets/images/usuarios/<?= $dataUser["imagen"] ?>" alt="image">
                                 <span class="availability-status online"></span>
                             </div>
                             <div class="nav-profile-text">
-                                <p class="mb-1 text-black">NombredePersonal</p>
+                                <p class="mb-1 text-black"><?= $dataUser['empleado']['NOMBRES']. ' ' . $dataUser['empleado']['APELLIDOS'] ?></p>
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item" href="#">
                                 <i class="mdi mdi-cached mr-2 text-success"></i> Actividad </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo site_url('welcome') ?>">
-                                <i class="mdi mdi-logout mr-2 text-primary"></i> Cerrar sesion </a>
+                            <button id="btnCerrarSesion" class="btn dropdown-item">
+                                <i class="mdi mdi-logout mr-2 text-primary"></i> Cerrar sesion </button>
                         </div>
                     </li>
                     <li class="nav-item d-none d-lg-block full-screen-link">
@@ -229,14 +240,14 @@ if (!isset($_SESSION['user'])) {
                         <div class="collapse" id="Clientes">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="<?= site_url('cliente/create_Cliente'); ?>">Crear
+                                        href="<?=site_url('cliente/create_Cliente');?>">Crear
                                         cliente</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="<?= site_url('cliente/create_Sucursal'); ?>">Crear sucursal</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="<?= site_url('cliente/'); ?>">Visualizar
+                                        href="<?=site_url('cliente/create_Sucursal');?>">Crear sucursal</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="<?=site_url('cliente/');?>">Visualizar
                                         clientes</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="<?= site_url('cliente/sucursales'); ?>">Visualizar sucursales</a></li>
+                                        href="<?=site_url('cliente/sucursales');?>">Visualizar sucursales</a></li>
                             </ul>
                         </div>
                     </li>
@@ -272,14 +283,19 @@ if (!isset($_SESSION['user'])) {
                         </a>
                         <div class="collapse" id="Ordenes">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="<?= site_url('orden/'); ?>">Crear
+                                <li class="nav-item"> <a class="nav-link" href="<?=site_url('orden/');?>">Crear
                                         ordenes</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="<?= site_url('orden/ordenesCreadas'); ?>">Ordenes
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="<?=site_url('orden/ordenesCreadas');?>">Ordenes
                                         creadas</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="<?= site_url('orden/ordenesPendientes'); ?>">Ordenes
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="<?=site_url('orden/ordenesPendientes');?>">Ordenes
                                         pendientes / proceso</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="<?= site_url('orden/ordenesAtendidas'); ?>">Ordenes
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="<?=site_url('orden/ordenesAtendidas');?>">Ordenes
                                         atendidas / cerradas</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="<?=site_url('orden/reporteOrdenes');?>">Reporte Ordenes</a></li>
                             </ul>
                         </div>
                     </li>
