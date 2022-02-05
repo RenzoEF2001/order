@@ -1,10 +1,12 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Orden extends CI_Controller {
-    
-    public function __construct() {
+class Orden extends CI_Controller
+{
+
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model("OrdenModel");
         $this->load->model("OrdenDetalleModel");
@@ -20,32 +22,33 @@ class Orden extends CI_Controller {
                 'field' => 'cliente',
                 'label' => 'Cliente',
                 'rules' => 'required',
-                'errors'=> array(
+                'errors' => array(
                     'required' => 'El campo "%s" es requerido.',
-                )
+                ),
             ),
             array(
                 'field' => 'sucursal',
                 'label' => 'Sucursal',
                 'rules' => 'required',
-                'errors'=> array(
+                'errors' => array(
                     'required' => 'El campo "%s" es requerido.',
-                )
+                ),
             ),
             array(
                 'field' => 'prueba',
                 'label' => 'Detalles de Ordenes',
                 'rules' => 'required',
-                'errors'=> array(
-                    'required' => 'La orden debe tener "%s".'
-                )
-            )
+                'errors' => array(
+                    'required' => 'La orden debe tener "%s".',
+                ),
+            ),
         );
 
     }
 
-    public function index() {
-        $datosCliente = $this->ClienteModel->view_cli();
+    public function index()
+    {
+        $datosCliente = $this->ClienteModel->getCliente_Sucursal();
         $datosDispositivo = $this->DispositivoModel->get();
         $datosTipoSistema = $this->TipoSistemaModel->get();
         $data = [
@@ -62,11 +65,11 @@ class Orden extends CI_Controller {
     public function ordenesCreadas()
     {
         $datosOrdenesCreadas = $this->OrdenModel->getOrdenesCreadas();
-        $datosEmpleado = $this->EmpleadoModel->get();
-        
+        $datosEmpleado = $this->EmpleadoModel->getTecnicos();
+
         $data = [
             "ordenescreadas" => $datosOrdenesCreadas,
-            "empleado" => $datosEmpleado
+            "empleado" => $datosEmpleado,
         ];
         $this->load->view('cabecera');
         $this->load->view('orden/Orden_creada', $data);
@@ -76,11 +79,11 @@ class Orden extends CI_Controller {
     public function ordenesPendientes()
     {
         $datosOrdenesCreadas = $this->OrdenModel->getOrdenesPendientes();
-        
+
         $data = [
-            "ordenespendientes" => $datosOrdenesCreadas
+            "ordenespendientes" => $datosOrdenesCreadas,
         ];
-        
+
         $this->load->view('cabecera');
         $this->load->view('orden/Orden_pendiente', $data);
         $this->load->view('footer');
@@ -89,13 +92,32 @@ class Orden extends CI_Controller {
     public function ordenesAtendidas()
     {
         $datosOrdenesAtendidas = $this->OrdenModel->getOrdenesAtendidas();
-        
+
         $data = [
-            "ordenesatendidas" => $datosOrdenesAtendidas
+            "ordenesatendidas" => $datosOrdenesAtendidas,
         ];
 
         $this->load->view('cabecera');
         $this->load->view('orden/Orden_atendida', $data);
+        $this->load->view('footer');
+    }
+
+    public function reporteOrdenes()
+    {
+        $datosOrdenes = $this->OrdenModel->getAll();
+        $datosEstados = $this->OrdenModel->getEstados();
+        $datosEmpleados = $this->OrdenModel->getEmpleados();
+        $datosFechas = $this->OrdenModel->getFechas();
+
+        $data = [
+            "ordenes" => $datosOrdenes,
+            "estados" => $datosEstados,
+            "empleados" => $datosEmpleados,
+            "fechas" => $datosFechas,
+        ];
+
+        $this->load->view('cabecera');
+        $this->load->view('orden/Orden_reporte', $data);
         $this->load->view('footer');
     }
 
@@ -120,7 +142,7 @@ class Orden extends CI_Controller {
         $dataOrdenDetalle = $this->OrdenDetalleModel->getPerOrden($codigo);
         $data = [
             "orden" => $dataOrden,
-            "ordendetalle" => $dataOrdenDetalle
+            "ordendetalle" => $dataOrdenDetalle,
         ];
         echo json_encode($data);
     }
@@ -132,11 +154,20 @@ class Orden extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function getAllFilterAjax()
+    {
+        $estado = $this->input->post('estado');
+        $empleado = $this->input->post('empleado');
+        $fecha = $this->input->post('fecha');
+        $data = $this->OrdenModel->getAllFilter($estado, $empleado, $fecha);
+        echo json_encode($data);
+    }
+
     public function save()
     {
         $this->form_validation->set_rules($this->rules);
 
-        if($this->form_validation->run() == FALSE){
+        if ($this->form_validation->run() == false) {
             return $this->index();
         }
 
@@ -147,48 +178,54 @@ class Orden extends CI_Controller {
         $arrayDetalles = [];
         $cont = 0;
 
+        date_default_timezone_set('America/Toronto');
+
         $datosOrden = [
-            "cod_orden" => $this->OrdenModel->callSpGenerateCode('ORD-')['CODIGO'],
+            "cod_orden" => ' ',
             "asunto" => $asunto,
-            "fecha_orden" => date('Y-m-d'),
-            "hora_orden" => date('h:i:s'),
+            "fecha_orden" => date('Y-m-d', time()),
+            "hora_orden" => date('h:i:s', time()),
             "remitente" => $remitente,
             "estado" => 1,
-            "fk_sucursal" => $this->ClienteModel->getSucursalPerCodigo($sucursal)['ID_SUCURSAL']
+            "fk_sucursal" => $this->ClienteModel->getSucursalPerCodigo($sucursal)['ID_SUCURSAL'],
         ];
 
-        $statusOrdenCreate = $this->OrdenModel->create($datosOrden);
+        $resultado = $this->OrdenModel->create($datosOrden);
 
-        if(!$statusOrdenCreate){
+        if (!$resultado['status']) {
+
             return redirect('orden/error_500');
         }
 
-        $orden = $this->OrdenModel->getLast()['ID_ORDEN'];
-
-        do{       
-            if(isset($detallesOrdenes)){
+        do {
+            if (isset($detallesOrdenes)) {
                 array_push($arrayDetalles, $detallesOrdenes);
             }
-            $postName = 'detallesOrdenes' . $cont++; 
-            $detallesOrdenes = $this->input->post($postName); 
-        } while(isset($detallesOrdenes));
-        
-        foreach($arrayDetalles as $arrayData){
+            $postName = 'detallesOrdenes' . $cont++;
+            $detallesOrdenes = $this->input->post($postName);
+        } while (isset($detallesOrdenes));
+
+        $count = 0;
+        foreach ($arrayDetalles as $arrayData) {
             $datosDetalleOrden = [
-                "cod_orden_detalle" => $this->OrdenDetalleModel->callSpGenerateCode('ODD-')['CODIGO'],
+                "cod_orden_detalle" => ' ',
                 "descripcion" => $arrayData[1],
-                "imagenes" => $arrayData[2],
+                "imagenes" => 'no_disponible.png',
                 "estado" => 1,
                 "fk_dispositivo" => $this->DispositivoModel->getIdPerCodigo($arrayData[0]),
-                "fk_orden" => $orden
+                "fk_orden" => $resultado['id'],
             ];
-            $statusOrdenDetalleCreate = $this->OrdenDetalleModel->create($datosDetalleOrden);
+            $resultado2 = $this->OrdenDetalleModel->create($datosDetalleOrden);
 
-            if(!$statusOrdenDetalleCreate){
+            if (!$resultado2['status']) {
                 return redirect('orden/error_500');
             }
 
+            $imagen_nombre = $this->uploadImage($resultado2['codigo'], $count);
+            $this->OrdenDetalleModel->updateImage($imagen_nombre, $resultado2['codigo']);
+            $count++;
         }
+
         redirect('orden/ordenesCreadas');
     }
 
@@ -204,4 +241,62 @@ class Orden extends CI_Controller {
     {
         $this->load->view('error-500');
     }
+
+    public function uploadImage($codigo, $indice)
+    {
+        //log_message('error', "Entro uploadImage el codigo es: " . $codigo);
+        $imagenesNombres = '';
+        $count = 1;
+        $postName = 'imagen' . $indice;
+        if (isset($_FILES[$postName])) {
+            log_message('error', "Existe Imagen");
+            foreach ($_FILES[$postName]['tmp_name'] as $key => $tmp_name) {
+                if ($_FILES[$postName]["name"][$key]) {
+                    if ($count == 6) {
+                        break;
+                    }
+                    $image_name = $_FILES[$postName]["name"][$key];
+                    $extencion = $this->obtenerExtensionFichero($image_name);
+                    $filename = $codigo . '_' . $count . '.' . $extencion;
+                    $imagenesNombres .= $filename . ',';
+                    $source = $_FILES[$postName]["tmp_name"][$key];
+
+                    $directorio = 'assets/images/ordenes';
+
+                    if (!file_exists($directorio)) {
+                        mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");
+                    }
+
+                    $dir = opendir($directorio);
+                    $target_path = $directorio . '/' . $filename;
+
+                    if (move_uploaded_file($source, $target_path)) {
+                        log_message('error', "El archivo $filename se ha almacenado en forma exitosa.");
+                    } else {
+                        log_message('error', "Ha ocurrido un error, por favor inténtelo de nuevo.");
+                    }
+                    closedir($dir);
+                    $count++;
+                }
+            }
+        } else {
+            log_message('error', "NO Existe Imagen");
+        }
+        $imagenesNombres = rtrim($imagenesNombres, ',');
+        return $imagenesNombres;
+    }
+
+    public function changeEstadoAJAX()
+    {
+        $codigo = $this->input->post('codigo');
+        $estado = $this->input->post('estado');
+        $this->OrdenModel->updateEstado($estado, $codigo);
+    }
+
+    private function obtenerExtensionFichero($str)
+    {
+        $res = explode(".", $str);
+        return end($res);
+    }
+
 }
