@@ -61,16 +61,11 @@
 
                                 </div>
 
-                                <div
-                                    style="display: flex;align-items:center;justify-content: flex-end; margin-left: 10px;">
+                                <div style="display: flex;align-items:center;justify-content: flex-end; margin-left: 10px;">
 
-                                    <button type="submit" class="btn btn-dark btn-fw" style="display: flex;"><i
-                                            class="fi fi-rr-disk" style="display: flex;margin-right: 10px;"></i>Crear
-                                    </button>
+                                    <button type="submit" class="btn btn-dark btn-fw" style="display: flex;"><i class="fi fi-rr-disk" style="display: flex;margin-right: 10px;"></i>Crear </button>
                                     <div style="margin-left: 10px;">
-                                        <button type="button" class="btn btn-dark btn-fw"
-                                            onClick='window.history.back()'> <i class="mdi mdi-keyboard-return"></i>
-                                            Regresar</button>
+                                        <button type="button" class="btn btn-dark btn-fw" onClick='window.history.back()'> <i class="mdi mdi-keyboard-return"></i> Regresar</button>
                                     </div>
 
                                 </div>
@@ -84,7 +79,8 @@
 
     </form>
 </div>
-
+</div>
+</body>
 
 <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/off-canvas.js"></script>
@@ -92,3 +88,5 @@
 <script src="<?php echo base_url(); ?>assets/js/misc.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/todolist.js"></script>
+
+</html>
