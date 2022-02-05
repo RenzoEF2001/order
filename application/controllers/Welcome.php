@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
@@ -8,6 +7,7 @@ class Welcome extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("LoginModel");
+		$this->load->model("EmpleadoModel");
 		$this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->rules = array(
@@ -43,11 +43,7 @@ class Welcome extends CI_Controller {
 		$contraseña = $this->input->post('contraseña');
 
 		$usuarioValid = $this->LoginModel->getUsuario($usuario);
-		/*
-		echo '<pre>';
-		print_r($usuarioValid);
-		var_dump($usuarioValid);
-		*/
+
 		if($usuarioValid == null){
 			$data['error'] = 'No se encontro el usuario';
 			return $this->index($data);
@@ -62,12 +58,17 @@ class Welcome extends CI_Controller {
 			"usuario" => $usuarioValid["USUARIO"],
 			"imagen" => $usuarioValid["FOTO"],
 			"perfil" => $usuarioValid["FK_PERFIL"],
-			"empleado" => $usuarioValid["FK_EMPLEADO"],
+			"empleado" => $this->EmpleadoModel->getById($usuarioValid["FK_EMPLEADO"]),
 		];
 
 		$this->session->set_userdata('user',$dataSession);
 
 		redirect('inicio');
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
 	}
 
 }
