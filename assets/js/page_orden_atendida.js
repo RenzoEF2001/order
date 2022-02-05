@@ -4,7 +4,6 @@ $(document).ready(function () {
         "pageLength": 5,
         "scrollX": false,
         searching: false,
-        ordering:  false,
         info: false,
         buttons: [],
         "columnDefs": [
@@ -65,6 +64,24 @@ $(document).ready(function () {
         
     });
 
+    $('.btnAtendidaOrdenAtendida').bind('click', async function(e){
+        let title = 'Cambio de estado';
+        let text = '¿Desea pasar esta orden de atendida a cerrada?';
+        let status = await alertChange(title, text);
+        if(status){
+            target = e.currentTarget;
+            let codigo = target.dataset.codigo;
+            $.ajax({
+                url: 'http://localhost/order/orden/changeEstadoAJAX',
+                data: { codigo: codigo, estado: 5 },
+                type: 'POST',
+                dataType: 'json',
+            });
+            location.reload();
+        }
+        
+    });
+
     $('#btnAtrasOrdenAtendida').click(function(){
         $('#modalOrdenAtendida').modal('show');
         $('#modalDetallesOrdenAtendida').modal('hide');
@@ -89,29 +106,58 @@ $(document).ready(function () {
 
                 let imagenes = data[0]['IMAGENES'].split(',')
 
-                for(let i = 0; i < imagenes.length; i++){
-                    if(i == 0){
+                $('#carruselOrdenAtendida').empty();
+                for (let i = 0; i < imagenes.length; i++) {
+                    if (i == 0) {
                         $('#carruselOrdenAtendida').append(`
                             <div class="carousel-item active">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/evidencias/${imagenes[i]}"
+                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                         `);
+                    } else {
+                        $('#carruselOrdenAtendida').append(`
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    alt="First slide">
+                            </div>
+                         `);
                     }
-                    $('#carruselOrdenAtendida').append(`
-                        <div class="carousel-item">
-                            <img class="d-block w-100"
-                                src="http://localhost/order/assets/images/evidencias/${imagenes[i]}"
-                                alt="First slide">
-                        </div>
-                    `);
-                    
                 }
             });
             
         });
     }   
 
+    function alertChange(title, text) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success btn-fw ml-2',
+                cancelButton: 'btn btn-danger btn-fw'
+            },
+            buttonsStyling: false
+        })
+
+        estado = swalWithBootstrapButtons.fire({
+            title: title,
+            html: text,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: '<strong>Si, cámbialo!</strong>',
+            cancelButtonText: '<strong>No, cancelar!</strong>',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                /**recargar */
+                return true;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                return false;
+            }
+        });
+
+        return estado;
+    }
 
 });

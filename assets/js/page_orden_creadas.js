@@ -4,11 +4,10 @@ $(document).ready(function () {
         "pageLength": 5,
         "scrollX": false,
         searching: false,
-        ordering:  false,
         info: false,
         buttons: [],
         "columnDefs": [
-            { "width": "5%", "targets": [6,7,8] },
+            { "width": "5%", "targets": [6, 7, 8] },
             { "width": "1%", "targets": 0 },
             { "width": "1%", "targets": 3 },
         ],
@@ -19,7 +18,7 @@ $(document).ready(function () {
         "pageLength": 5,
         "scrollX": false,
         searching: false,
-        ordering:  false,
+        ordering: false,
         paging: false,
         info: false,
         buttons: [],
@@ -36,19 +35,19 @@ $(document).ready(function () {
         info: false,
         buttons: [],
         select: 'single',
-        "dom":'<"row m-auto"f>t<"row m-auto mt-2"p>'
+        "dom": '<"row m-auto"f>t<"row m-auto mt-2"p>'
     });
 
     $('.btnDetallesOrdenCreada').bind('click', function (e) {
         target = e.currentTarget;
         let codigo = target.dataset.codigo;
-        
+
         $.ajax({
             url: 'http://localhost/order/orden/getOrdenDetallePerOrdenAJAX',
             data: { codigo: codigo },
             type: 'POST',
             dataType: 'json',
-        }).done(function(data){
+        }).done(function (data) {
             $('#tablaModalBody1OrdenCreada').empty();
             let cont = 0;
 
@@ -57,8 +56,8 @@ $(document).ready(function () {
             $('#sucursalOrdenCreada').val(data['orden'][0]['DIRECCION']);
             $('#asuntoOrdenCreada').val(data['orden'][0]['ASUNTO']);
             $('#remitenteOrdenCreada').val(data['orden'][0]['REMITENTE']);
-            
-            for(let valor of data['ordendetalle']){
+
+            for (let valor of data['ordendetalle']) {
                 $('#tablaModalBody1OrdenCreada').append(`
                     <tr>
                         <td>${valor['COD_ORDEN_DETALLE']}</td>
@@ -71,12 +70,13 @@ $(document).ready(function () {
                 `);
             }
             $('#modalOrdenCreada').modal('show');
+
             generateEvent();
         });
-        
+
     });
 
-    function generateEvent(){
+    function generateEvent() {
         $('.btnDetalles2OrdenCreada').bind('click', function (e) {
             target = e.currentTarget;
             let codigo = target.dataset.codigo;
@@ -87,38 +87,38 @@ $(document).ready(function () {
                 data: { codigo: codigo },
                 type: 'POST',
                 dataType: 'json',
-            }).done(function(data){
+            }).done(function (data) {
                 $('#tiposistemaOrdenCreada').val(data[0]['DESCRIPCION']);
                 $('#dispositivoOrdenCreada').val(data[0]['NOMBRE']);
                 $('#descripcionProblemaOrdenCreada').val(data[0]['DESCRIPCION_PROBLEMA']);
 
                 let imagenes = data[0]['IMAGENES'].split(',')
-
-                for(let i = 0; i < imagenes.length; i++){
-                    if(i == 0){
+                $('#carruselOrdenCreada').empty();
+                for (let i = 0; i < imagenes.length; i++) {
+                    if (i == 0) {
                         $('#carruselOrdenCreada').append(`
                             <div class="carousel-item active">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/evidencias/${imagenes[i]}"
+                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                         `);
+                    } else {
+                        $('#carruselOrdenCreada').append(`
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    alt="First slide">
+                            </div>
+                         `);
                     }
-                    $('#carruselOrdenCreada').append(`
-                        <div class="carousel-item">
-                            <img class="d-block w-100"
-                                src="http://localhost/order/assets/images/evidencias/${imagenes[i]}"
-                                alt="First slide">
-                        </div>
-                    `);
-                    
                 }
             });
-            
-        });
-    }   
 
-    $('#btnAtrasOrdenCreada').click(function(){
+        });
+    }
+
+    $('#btnAtrasOrdenCreada').click(function () {
         $('#modalOrdenCreada').modal('show');
         $('#modalDetallesOrdenCreada').modal('hide');
     });
@@ -127,20 +127,20 @@ $(document).ready(function () {
         target = e.currentTarget;
         let codigo = target.dataset.codigo;
         $('#codigoAsignarOrdenCreada').text(codigo);
-        $('#codigoAsignarOrdenCreada').attr("data-codigo",codigo);
+        $('#codigoAsignarOrdenCreada').attr("data-codigo", codigo);
         $('#modalAsignarOrdenCreada').modal('show');
     });
 
-    $('#btnAsignarConfirmarOrdenCreada').click(async function(){
+    $('#btnAsignarConfirmarOrdenCreada').click(async function () {
         let table = $('#tablaAsignarOrdenCreada').DataTable();
- 
-        let data = table.row( { selected: true } ).data();
-        
+
+        let data = table.row({ selected: true }).data();
+
         let icon = '';
         let title = '';
         let text = '';
 
-        if(data == null){
+        if (data == null) {
             icon = 'info';
             title = 'Seleccione un empleado';
             text = 'Debe seleccionar un empleado antes de asignarlo a la orden.';
@@ -155,7 +155,7 @@ $(document).ready(function () {
 
         console.log(estado);
 
-        if(estado){
+        if (estado) {
             icon = 'success';
             title = 'Asignado correctamente';
             alertStatus(title, text, icon).then((result) => {
@@ -168,8 +168,8 @@ $(document).ready(function () {
             title = 'Ocurrio un error';
             alertStatus(title, text, icon);
         }
-        
-        
+
+
     });
 
     function alertStatus(title, text, icon) {
@@ -187,13 +187,13 @@ $(document).ready(function () {
         });
     }
 
-    async function asignarEmpleado(codigoEmpleado, codigoOrden){
+    async function asignarEmpleado(codigoEmpleado, codigoOrden) {
         let response = await $.ajax({
             url: 'http://localhost/order/orden/asignarEmpleado',
             data: { codigoEmpleado: codigoEmpleado, codigoOrden: codigoOrden },
             type: 'POST',
             dataType: 'json',
-        }).done(function(data){
+        }).done(function (data) {
             return data;
         });
         return response
