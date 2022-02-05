@@ -11,8 +11,29 @@ class OrdenDetalleModel extends CI_Model
     public function create($datos)
     {
         $query = $this->db->insert('tb_orden_detalle',$datos);
-        mysqli_next_result( $this->db->conn_id );
-        return $query;
+
+        $idCreada = $this->db->insert_id();
+        $codigo = $this->callSpGenerateCode('ODD-',$idCreada)['CODIGO'];
+
+        $this->db->set('COD_ORDEN_DETALLE', $codigo);
+        $this->db->where('ID_ORDEN_DETALLE', $idCreada);
+        $this->db->update('tb_orden_detalle'); 
+
+        //mysqli_next_result( $this->db->conn_id );
+
+        $data = [
+            'status' => $query,
+            'codigo' => $codigo
+        ];
+
+        return $data;
+    }
+
+    public function updateImage($imagen, $codigo)
+    {
+        $this -> db -> set ('IMAGENES' , $imagen); 
+        $this -> db -> where ('COD_ORDEN_DETALLE' , $codigo); 
+        $this -> db -> update ('tb_orden_detalle'); 
     }
 
     public function getPerOrden($codigo)
@@ -37,14 +58,11 @@ class OrdenDetalleModel extends CI_Model
         return  $this->db->get()->result_array();
     }
 
-    public function callSpGenerateCode($nomenclatura)
+    public function callSpGenerateCode($nomenclatura, $num)
     {
-        $num = $this->getLast()['ID_ORDEN_DETALLE'];
-        ++$num;
         $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
         mysqli_next_result( $this->db->conn_id );
         return $query->row_array();
-
     }
 
     public function getLast()
