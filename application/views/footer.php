@@ -1,23 +1,3 @@
-<!--</div>
-</body>
-<script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/off-canvas.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/hoverable-collapse.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/misc.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/todolist.js"></script>
-<script src="<?php echo base_url(); ?>assets/vendors/chart.js/Chart.min.js"></script>
-
-<script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip({
-            html: true
-        });
-    });
-</script>
-
-</html>-->
-
 
 </div>
 <!-- page-body-wrapper ends -->
@@ -26,6 +6,7 @@
 <!-- container-scroller -->
 <!-- plugins:js -->
 <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
+
 <!-- endinject -->
 <!-- Plugin js for this page -->
 <script src="<?php echo base_url(); ?>assets/vendors/chart.js/Chart.min.js"></script>
@@ -36,7 +17,7 @@
 <script src="<?php echo base_url(); ?>assets/js/misc.js"></script>
 <!-- endinject -->
 <!-- Custom js for this page -->
-<script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
+<!-- <script src="<?php //echo base_url(); ?>assets/js/dashboard.js"></script> -->
 <script src="<?php echo base_url(); ?>assets/js/todolist.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/file-upload.js"></script>
 <!-- RefValidator-->
@@ -52,6 +33,8 @@
 <!-- Kodoti -->
 <script src="<?php echo base_url(); ?>assets/js/KodotiLocalCache.js"></script>
 <!-- Otros -->
+<script src="<?php echo base_url(); ?>assets/js/page_welcome.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_reporte.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_empleado_view.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_cliente_view.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_sucursal_view.js"></script>
@@ -59,9 +42,11 @@
 <script src="<?php echo base_url(); ?>assets/js/page_orden_creadas.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_orden_pendiente.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_orden_atendida.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_orden_reporte.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_usuario_view.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_usuario_modulo.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_perfil_view.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_prueba.js"></script>
 <!-- End custom js for this page -->
 
 <script>
@@ -108,9 +93,13 @@ $(function() {
     } );
     $(document).ready(function () {
         $('.page-link').css('background-color', '#B66DFF !important');
+        $('[data-toggle="tooltip"]').tooltip({
+            html: true
+        });
     });
 
 </script>
+
 
 </body>
 
