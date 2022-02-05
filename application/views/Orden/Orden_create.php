@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Generar nueva orden</h4>
-                        <form class="form-sample" action="<?= site_url('orden/save')?>" method="post">
+                        <form class="form-sample" action="<?= site_url('orden/save')?>" method="post" enctype="multipart/form-data">
                             <?= validation_errors('<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                                 <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
@@ -23,14 +23,23 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Cliente</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="cliente" id="clienteOrdenCreate" value=<?= set_value('cliente') ?>>
-                                                <option value="">Seleccione un cliente</option>
-                                                <?php foreach($cliente as $valor): ?>
-                                                    <option <?= set_select('cliente', $valor->COD_CLIENTE); ?> value="<?= $valor->COD_CLIENTE ?>"><?= $valor->RAZON_SOCIAL ?>
-                                                </option>
-                                                <?php endforeach; ?>
-                                            </select>
-
+                                            <div class="row">
+                                                <div class="col-sm-11">
+                                                    <select class="form-control" name="cliente" id="clienteOrdenCreate"
+                                                        value=<?= set_value('cliente') ?>>
+                                                        <option value="">Seleccione un cliente</option>
+                                                        <?php foreach($cliente as $valor): ?>
+                                                        <option <?= set_select('cliente', $valor->COD_CLIENTE); ?>
+                                                            value="<?= $valor->COD_CLIENTE ?>"><?= $valor->RAZON_SOCIAL ?>
+                                                        </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <i class="mdi mdi-information-outline text-secondary" title="Solo apareceran los clientes con sucursales"></i>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +60,8 @@
                                         <label class="col-sm-3 col-form-label">Asunto</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
-                                                placeholder="Resumen del problema..." name="asunto" id="asuntoOrdenCreate" value="<?= set_value('asunto') ?>" />
+                                                placeholder="Resumen del problema..." name="asunto"
+                                                id="asuntoOrdenCreate" value="<?= set_value('asunto') ?>" />
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +97,7 @@
                                             <th scope="col" class="cbz">Tipo Sistema</th>
                                             <th scope="col" class="cbz">Dispositivo</th>
                                             <th scope="col" class="cbz">Descripcion del Problema</th>
-                                            <th scope="col" class="cbz" hidden>Imagen</th>
+                                            <th scope="col" class="cbz">Imagen</th>
                                             <th scope="col" class="cbz">Editar</th>
                                             <th scope="col" class="cbz">Eliminar</th>
                                         </tr>
@@ -100,9 +110,10 @@
 
                             <div class="form-group mt-5 mb-0">
                                 <div class="row justify-content-end">
-                                    <button id="btnGenerarOrdenCreate" type="submit" class="btn btn-gradient-primary btn-fw mr-2"
-                                        style="display: flex;"><i class="fi fi-rr-disk"
-                                            style="display: flex;margin-right: 10px;"></i>Generar Orden</button>
+                                    <button id="btnGenerarOrdenCreate" type="submit"
+                                        class="btn btn-gradient-primary btn-fw mr-2" style="display: flex;"><i
+                                            class="fi fi-rr-disk" style="display: flex;margin-right: 10px;"></i>Generar
+                                        Orden</button>
                                 </div>
                             </div>
                         </form>
@@ -168,24 +179,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label id="lblImagenOrdenCreate">Subir Imagen</label>
-                                            <input type="file" name="imagen" id="txtImagenOrdenCreate"
-                                                class="file-upload-default" multiple>
-                                            <div class="input-group col-xs-12">
-                                                <input type="text" id="txtImagenNombreOrdenCreate"
-                                                    class="form-control file-upload-info" disabled
-                                                    placeholder="Imagen...">
-                                                <span class="input-group-append">
-                                                    <button class="file-upload-browse btn btn-gradient-primary"
-                                                        type="button">Upload</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -193,8 +187,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="guardarOrdenCreate" type="button" class="btn btn-primary" hidden>Agregar</button>
-                <button id="actualizarOrdenCreate" type="button" class="btn btn-primary" hidden>Actualizar</button>
+                <button id="guardarDetalleOrdenCreate" type="button" class="btn btn-primary" hidden>Agregar</button>
+                <button id="actualizarDetalleOrdenCreate" type="button" class="btn btn-primary" hidden>Actualizar</button>
             </div>
         </div>
     </div>

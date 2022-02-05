@@ -24,7 +24,7 @@
                                 <tbody>
                                     <?php foreach($ordenesatendidas as $valor): ?>
                                         <tr>
-                                            <th><?= $valor['COD_ORDEN'] ?></th>
+                                            <td><?= $valor['COD_ORDEN'] ?></td>
                                             <td><?= $valor['FECHA_ORDEN'] ?></td>
                                             <td><?= $valor['HORA_ORDEN'] ?></td>
                                             <td
@@ -33,14 +33,14 @@
                                             <td><?= $valor['RAZON_SOCIAL'] ?></td>
                                             <td
                                                 style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                                                <?= $valor['DIRECCION'] ?></td>
+                                                <?= $valor['DIRECCION_SUCURSAL'] ?></td>
                                             <td class="text-center"><button type="button"
                                                     class="btnDetallesOrdenAtendida btn btn-outline btn-rounded btn-icon"
                                                     data-codigo="<?= $valor['COD_ORDEN'] ?>"><i
                                                         class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
                                             <?php if($valor['ESTADO_ORDEN'] == 4): ?>
-                                                <td class="text-center"><label
-                                                        class="text-black-50 font-weight-bold badge badge-info">ATENDIDA</label>
+                                                <td class="text-center"><button data-codigo="<?= $valor['COD_ORDEN'] ?>"
+                                                        class="btnAtendidaOrdenAtendida text-black-50 font-weight-bold badge badge-info">ATENDIDA</button>
                                                 </td>
                                             <?php endif; ?>
                                             <?php if($valor['ESTADO_ORDEN'] == 5): ?>

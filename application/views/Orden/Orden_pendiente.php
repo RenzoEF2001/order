@@ -23,7 +23,7 @@
                                 <tbody>
                                     <?php foreach($ordenespendientes as $valor): ?>
                                     <tr>
-                                        <th><?= $valor['COD_ORDEN'] ?></th>
+                                        <td><?= $valor['COD_ORDEN'] ?></td>
                                         <td><?= $valor['FECHA_ORDEN'] ?></td>
                                         <td><?= $valor['HORA_ORDEN'] ?></td>
                                         <td
@@ -32,19 +32,19 @@
                                         <td><?= $valor['RAZON_SOCIAL'] ?></td>
                                         <td
                                             style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                                            <?= $valor['DIRECCION'] ?></td>
+                                            <?= $valor['DIRECCION_SUCURSAL'] ?></td>
                                         <td class="text-center"><button type="button"
                                                 class="btnDetallesOrdenPendiente btn btn-outline btn-rounded btn-icon"
                                                 data-codigo="<?= $valor['COD_ORDEN'] ?>"><i
                                                     class="mdi mdi-library-books mdi-18px text-info"></i></button></td>
                                         <?php if($valor['ESTADO_ORDEN'] == 2): ?>
-                                        <td class="text-center"><label
-                                                class="text-black-50 font-weight-bold badge badge-warning">PENDIENTE</label>
+                                        <td class="text-center"><button data-codigo="<?= $valor['COD_ORDEN'] ?>"
+                                                class="btnPendienteOrdenPendiente text-black-50 font-weight-bold badge badge-warning">PENDIENTE</button>
                                         </td>
                                         <?php endif; ?>
                                         <?php if($valor['ESTADO_ORDEN'] == 3): ?>
-                                        <td class="text-center"><label
-                                                class="text-black-50 font-weight-bold badge badge-success">TRABAJANDO</label>
+                                        <td class="text-center"><button id="btnTrabajandoOrdenPendiente"
+                                                class="text-black-50 font-weight-bold badge badge-success">TRABAJANDO</button>
                                         </td>
                                         <?php endif; ?>
                                     </tr>

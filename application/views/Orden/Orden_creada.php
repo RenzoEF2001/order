@@ -24,11 +24,11 @@
                                 <tbody>
                                     <?php foreach($ordenescreadas as $valor): ?>
                                     <tr>
-                                        <th><?= $valor['COD_ORDEN'] ?></th>
+                                        <td><?= $valor['COD_ORDEN'] ?></td>
                                         <td><?= $valor['FECHA_ORDEN'] ?></td>
                                         <td><?= $valor['HORA_ORDEN'] ?></td>
                                         <td
-                                            style="max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['ASUNTO'] ?></td>
                                         <td><?= $valor['RAZON_SOCIAL'] ?></td>
                                         <td
