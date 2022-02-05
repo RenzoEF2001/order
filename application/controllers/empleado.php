@@ -163,7 +163,7 @@ class Empleado extends CI_Controller
         }
 
         $datosEmpleado = [
-            "cod_empleado" => $this->generateCodeEmpleado("EMP-"),
+            "cod_empleado" => ' ',//$this->generateCodeEmpleado("EMP-"),
             "nombres" => $this->input->post("nombre"),
             "apellidos" => $this->input->post("apellido"),
             "genero" => $this->input->post("genero"),
@@ -182,30 +182,28 @@ class Empleado extends CI_Controller
 
         $resultado = $this->EmpleadoModel->create($datosEmpleado);
 
-        $ultimoInsertado = $this->EmpleadoModel->getLast();
-
         $hash = password_hash($this->input->post("contraseña"), PASSWORD_DEFAULT);
 
         $datosUsuario = [
-            "cod_usuario" => $this->generateCodeUsuario("USU-"),
+            "cod_usuario" => ' ',
             "usuario" => $this->input->post("usuario"),
             "contraseña" => $hash,
             "foto" => 'sin_foto.png',
             "estado" => 1,
             "fk_perfil" => $this->input->post("perfil"),
-            "fk_empleado" => $ultimoInsertado["ID_EMPLEADO"],
+            "fk_empleado" => $resultado['id'],
         ];
+
+        $resultado2 = $this->UsuarioModel->create($datosUsuario);
 
         if (isset($_FILES['imagen'])) {
             if ($_FILES['imagen']['name'] != "") {
-                $nombreImagen = $this->uploadImage($datosUsuario["cod_usuario"]);
-                $datosUsuario["foto"] = $nombreImagen;
-            } else {
-                $datosUsuario["foto"] = "sin_imagen.png";
+                $nombre_imagen = $this->uploadImage('usu-'.$resultado2['id']);
+                $this->UsuarioModel->actualizarFotoUsuario($nombre_imagen, $resultado2['id']);
             }
         }
 
-        $resultado2 = $this->UsuarioModel->create($datosUsuario);
+        
 
         //crear validacion con $resultado
 
