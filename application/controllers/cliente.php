@@ -88,7 +88,7 @@ class Cliente extends CI_Controller {
             return $this->create_Cliente();
         }
 
-        $datos['COD_CLIENTE'] = $this->generateCodeCliente("CLI-");
+        $datos['COD_CLIENTE'] = ' ';
         $datos['RUC'] = $this->input->post('RUC');
         $datos['RAZON_SOCIAL'] = $this->input->post('RAZON_SOCIAL');
         $datos['TELEFONO_1'] = $this->input->post('TELEFONO_1');
@@ -160,7 +160,7 @@ class Cliente extends CI_Controller {
             return $this->create_Sucursal();
         }
 
-        $datossucu['COD_CLIENTE_SUCURSAL'] = $this->generateCodeSucursal("SUC-");
+        $datossucu['COD_CLIENTE_SUCURSAL'] = ' ';
         $datossucu['DIRECCION'] = $this->input->post('DIRECCION');
         $datossucu['TELEFONO'] = $this->input->post('TELEFONO');
         $datossucu['NOMBRE_CONTACTO'] = $this->input->post('NOMBRE_CONTACTO');
@@ -236,17 +236,6 @@ class Cliente extends CI_Controller {
         }
 
         echo json_encode($status);
-    }
-
-    public function generateCodeCliente($nomenclatura)
-    {
-        $res = $this->ClienteModel->callSpGenerateCodeCliente($nomenclatura);
-        return $res['CODIGO'];
-    }
-    public function generateCodeSucursal($nomenclatura)
-    {
-        $res = $this->ClienteModel->callSpGenerateCodeSucursal($nomenclatura);
-        return $res['CODIGO'];
     }
 
 }
