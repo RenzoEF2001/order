@@ -1,0 +1,17 @@
+.cardButton{
+    cursor: pointer;
+    transition: transform .2s;
+}
+.cardButton:hover{
+    transform: scale(1.03);
+    filter: brightness(1.04);
+}
+
+.rgbPendiente{
+    background: rgb(255,227,0);
+    background: linear-gradient(to right, rgba(249, 232, 145, 1), rgba(255, 166, 81, 1));
+}
+
+.rgbTrabajando{
+    background: linear-gradient(to right, rgba(132, 217, 210, 1), rgba(5, 175, 150, 0.897));
+}
