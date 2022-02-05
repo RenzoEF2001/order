@@ -10,7 +10,19 @@ class UsuarioModel extends CI_Model
 
     public function create($datos)
     {
-        return $this->db->insert('tb_usuario',$datos);
+        $query = $this->db->insert('tb_usuario',$datos);
+        $idCreada = $this->db->insert_id();
+
+        $this->db->set('COD_USUARIO', $this->callSpGenerateCode('USU-',$idCreada)['CODIGO']);
+        $this->db->where('ID_USUARIO', $idCreada);
+        $this->db->update('tb_usuario'); 
+
+        $data = [
+            'status' => $query,
+            'id' => $idCreada
+        ];
+
+        return $data;
     }
 
     public function deteleLogicalPerEmpleado($codigo)
@@ -35,15 +47,11 @@ class UsuarioModel extends CI_Model
         return $this->db->count_all_results();
     }
 
-    public function callSpGenerateCode($nomenclatura)
+    public function callSpGenerateCode($nomenclatura, $num)
     {
-        $num = $this->getLast()['ID_USUARIO'];
-        ++$num;
-
         $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
         mysqli_next_result( $this->db->conn_id );
         return $query->row_array();
-
     }
 
     public function getLast()
@@ -70,6 +78,11 @@ class UsuarioModel extends CI_Model
     public function actualizarUsuario($datos,$idUsu){
         $this -> db -> where ('ID_USUARIO' , $idUsu); 
         $this -> db -> update ('tb_usuario',$datos); 
+    }
+    public function actualizarFotoUsuario($foto,$idUsu){
+        $this -> db -> set ('FOTO' , $foto); 
+        $this -> db -> where ('ID_USUARIO' , $idUsu); 
+        $this -> db -> update ('tb_usuario'); 
     }
     public function elimnarUsu($idUsu){
         $this -> db -> set ('ESTADO','0'); 
