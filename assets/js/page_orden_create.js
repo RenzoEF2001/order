@@ -3,9 +3,6 @@ $(document).ready(function () {
 
     kodotiCache.delete('detallesOrdenes');
 
-
-    //showDataTable(getKodoti('detallesOrdenes'));
-
     defaultSelect();
 
     if ($('#clienteOrdenCreate').val() != null || $('#clienteOrdenCreate').val() != "") {
@@ -127,7 +124,6 @@ $(document).ready(function () {
             saveLocally(data);
             let detallesOrdenes = getKodoti('detallesOrdenes');
             showRow(detallesOrdenes);
-            console.log(detallesOrdenes);
             $('#modalAgregarOrdenCreate').modal("hide");
             $('#detallesOrdenesOrdenCreate').val('1');
         }
@@ -192,7 +188,6 @@ $(document).ready(function () {
     });
 
     function updateRow(data, index){
-        console.log($('#inputTipoSistemaDetallesOrdenes'+index))
         /*--TipoSistema--------*/
         $('#pTipoSistemaDetallesOrdenes'+index).text(data['tiposistema']['descripcion']);
         /*--Dispositivo--------*/
@@ -203,56 +198,89 @@ $(document).ready(function () {
         $('#pDescripcionDetallesOrdenes'+index).text(data['descripcionProblema']);
     }
 
-    function showDataTable(data) {
-        $('#tablaBodyOrdenCreate').empty();
-        console.log('showDatTable');
-        let cont = 0;
-
-        for (let valor of data) {
-            $('#tablaBodyOrdenCreate').append(`
-                <tr>
-                    <td>${++cont}</td>
-                    <td><p>${valor['tiposistema']['descripcion']}</p></td>
-                    <td><input type="text" name="detallesOrdenes${cont - 1}[]" value="${valor['dispositivo']['codigo']}" hidden>${valor['dispositivo']['descripcion']}</td>
-                    <td><input type="text" name="detallesOrdenes${cont - 1}[]" value="${valor['descripcionProblema']}" hidden>${valor['descripcionProblema']}</td>
-                    <td><input type="file" name="imagen${cont - 1}[]" multiple></td>
-                    <td class="text-center"><a style="cursor:pointer" class="btnEditarOrdenCreate" data-index="${cont - 1}"><i class="fas fa-edit text-info"></i></a></td>
-                    <td class="text-center"><a style="cursor:pointer" class="btnBorrarOrdenCreate" data-index="${cont - 1}"><i class="fas fa-trash text-danger"></i></a></td>
-                </tr>
-            `);
-        }
-
-    }
-
     function showRow(data) {
         if ($('#tablaOrdenCreate tr .dataTables_empty').length == 1) {
             $('#tablaBodyOrdenCreate').empty();
         }
-        let rowCount = $('#tablaOrdenCreate tr').length;
-        console.log('filas: ' + rowCount)
-        let cont = rowCount - 1;
-        for (let index = rowCount - 1; index < data.length; index++) {
-            $('#tablaBodyOrdenCreate').append(`
-                <tr>
-                    <td>${index + 1}</td>
-                    <td><p class="m-0" id="pTipoSistemaDetallesOrdenes${index}">${data[index]['tiposistema']['descripcion']}</p></td>
-                    <td><input id="inputDispositivoDetallesOrdenes${index}" type="text" name="detallesOrdenes${index}[]" value="${data[index]['dispositivo']['codigo']}" hidden><p class="m-0" id="pDispositivoDetallesOrdenes${index}">${data[index]['dispositivo']['descripcion']}</p></td>
-                    <td><input id="inputDescripcionDetallesOrdenes${index}" type="text" name="detallesOrdenes${index}[]" value="${data[index]['descripcionProblema']}" hidden><p class="m-0" style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" id="pDescripcionDetallesOrdenes${index}">${data[index]['descripcionProblema']}</p></td>
-                    <td><input type="file" name="imagen${index}[]" multiple></td>
-                    <td class="text-center"><a style="cursor:pointer" id="btnEditarOrdenCreate${index}" class="btnEditarOrdenCreate" data-index="${index}"><i class="fas fa-edit text-info"></i></a></td>
-                    <td class="text-center"><a style="cursor:pointer" id="btnBorrarOrdenCreate${index}" class="btnBorrarOrdenCreate" data-index="${index}"><i class="fas fa-trash text-danger"></i></a></td>
-                </tr>
-            `);
+
+        let last_row = $('#tablaOrdenCreate tr:last').attr("data-index");
+        let indice = 0;
+
+        if(last_row !== undefined){
+            indice = Number(last_row);
+            indice++;
         }
 
+        let rowCount = $('#tablaOrdenCreate tr').length;
         let rowCount2 = $('#tablaOrdenCreate tr').length;
 
-        if (rowCount == 1) {
-            //generateEvent();
+        for (let index = rowCount - 1; index < data.length; index++) {
+            $('#tablaBodyOrdenCreate').append(`
+                <tr class="indice-tabla" data-index="${indice}">
+                    <td class="indice">${rowCount2}</td>
+                    <td><p class="pTipoSistemaDetallesOrdenes m-0" id="pTipoSistemaDetallesOrdenes${index}">${data[index]['tiposistema']['descripcion']}</p></td>
+                    <td><input id="inputDispositivoDetallesOrdenes${indice}" type="text" name="detallesOrdenes${indice}[]" value="${data[index]['dispositivo']['codigo']}" hidden>
+                        <p class="pDispositivoDetallesOrdenes m-0" id="pDispositivoDetallesOrdenes${indice}">${data[index]['dispositivo']['descripcion']}</p></td>
+                    <td><input id="inputDescripcionDetallesOrdenes${indice}" type="text" name="detallesOrdenes${indice}[]" value="${data[index]['descripcionProblema']}" hidden>
+                        <p class="pDescripcionDetallesOrdenes m-0" style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" id="pDescripcionDetallesOrdenes${indice}">${data[index]['descripcionProblema']}</p></td>
+                    <td><input type="file" name="imagen${indice}[]" multiple></td>
+                    <td class="text-center"><a style="cursor:pointer" id="btnEditarOrdenCreate${indice}" class="btnEditarOrdenCreate" data-index="${index}"><i class="fas fa-edit text-info"></i></a></td>
+                    <td class="text-center"><a style="cursor:pointer" id="btnBorrarOrdenCreate${indice}" class="btnBorrarOrdenCreate" data-index="${index}"><i class="fas fa-trash text-danger"></i></a></td>
+                </tr>
+            `);
+            indice++;
+            rowCount2++;
         }
 
+        
+        
 
+    }
 
+    function updateDataTable(){
+        for(let j = 1; j < $('#tablaOrdenCreate tr').length; j++){
+            let tr = $('#tablaOrdenCreate').find("tr:eq("+j+")");
+            tr.attr("data-index",(j-1))
+            for(let i = 0; i < $('#tablaOrdenCreate tr th').length; i++){
+                let fila = $('#tablaOrdenCreate').find("tr:eq("+j+") td:eq("+i+")");
+                if(i == 0) fila.text(j);
+                if(i == 1){
+                    id = 'pTipoSistemaDetallesOrdenes' + (j - 1);
+                    fila.children('.pTipoSistemaDetallesOrdenes').attr("id",id);
+                }
+                if(i == 2){
+                    let id_input = "inputDispositivoDetallesOrdenes" + (j - 1);
+                    let id_p = "pDispositivoDetallesOrdenes" + (j - 1);
+                    let name_input = ("detallesOrdenes"+(j - 1))+"[]";
+                    fila.find(':text').attr("id", id_input);
+                    fila.find(':text').attr("name", name_input);
+                    fila.children('.pDispositivoDetallesOrdenes').attr("id", id_p);
+                }
+                if(i == 3){
+                    let id_input = "inputDescripcionDetallesOrdenes" + (j - 1);
+                    let id_p = "pDescripcionDetallesOrdenes" + (j - 1);
+                    let name_input = ("detallesOrdenes"+(j - 1))+"[]";
+                    fila.find(':text').attr("id", id_input);
+                    fila.find(':text').attr("name",name_input);
+                    fila.children('.pDescripcionDetallesOrdenes').attr("id", id_p);
+                }
+                if(i == 4){
+                    let name_image = ("imagen"+(j - 1))+"[]";
+                    fila.find(':input').attr("name", name_image);
+                }
+                if(i == 5){
+                    let id_a = "btnEditarOrdenCreate"+(j - 1);
+                    fila.find('a').attr("id", id_a);
+                    fila.find('a').attr("data-index",(j - 1));
+                }
+                if(i == 6){
+                    let id_a = "btnBorrarOrdenCreate"+(j - 1);
+                    fila.find('a').attr("id", id_a);
+                    fila.find('a').attr("data-index",(j - 1));
+                }   
+                
+            }
+        }  
     }
 
     function showDispositivo(codigo, selected = null) {
@@ -294,88 +322,15 @@ $(document).ready(function () {
         });
     }
 
-    function generateEvent() {
-        console.log('generateEvent');
-        $('.btnEditarOrdenCreate').bind('click', function (e) {
-
-            $('#alertaOrdenCreate').empty();
-            $('#alertaOrdenCreate').attr('hidden', true);
-            $('#comboTipoSistemaOrdenCreate').css('border', '');
-            $('#comboTipoSistemaOrdenCreate').css('border-color', '');
-            $('#lblTipoSistemaOrdenCreate').find("i.mdi.mdi-alert-circle.text-danger:first").remove();
-            $('#comboDispositivoOrdenCreate').css('border', '');
-            $('#comboDispositivoOrdenCreate').css('border-color', '');
-            $('#lblDispositivoOrdenCreate').find("i.mdi.mdi-alert-circle.text-danger:first").remove();
-
-            target = e.currentTarget;
-            let index = target.dataset.index;
-            let data = getKodoti('detallesOrdenes');
-
-            $('#guardarDetalleOrdenCreate').attr('hidden', true);
-            $('#actualizarDetalleOrdenCreate').attr('hidden', false);
-
-            if (data[index] == undefined) {
-                return;
-            }
-            let rules = {
-                "tiposistema": {
-                    "name": "Tipo Sistema",
-                    "label": $('#lblTipoSistemaOrdenCreate'),
-                    "field": $('#comboTipoSistemaOrdenCreate'),
-                    "rules": "required",
-                    "errors": {
-                        "required": "Debe ingresar un tipo de sistema"
-                    }
-                },
-                "dispositivo": {
-                    "name": "Dispositivo",
-                    "label": $('#lblDispositivoOrdenCreate'),
-                    "field": $('#comboDispositivoOrdenCreate'),
-                    "rules": "required",
-                    "errors": {
-                        "required": "Debe ingresar un dispositivo"
-                    }
-                }
-            }
-
-
-            let refvalidator = new RefValidator();
-            refvalidator.configuration = rules;
-            refvalidator.errorConteiner = $('#alertaOrdenCreate');
-
-            $('#indexKodotiOrdenCreate').val(index);
-            $('#comboTipoSistemaOrdenCreate').prop("value", data[index]['tiposistema']['codigo']);
-            showDispositivo(data[index]['tiposistema']['codigo'], data[index]['dispositivo']['codigo']);
-            $('#txaDescripcionProblemaOrdenCreate').val(data[index]['descripcionProblema']);
-            $('#modalAgregarOrdenCreate').modal("show");
-        });
-
-        $('.btnBorrarOrdenCreate').bind('click', function (e) {
-            console.log('EventoBorrar')
-            target = e.currentTarget;
-            let index = target.dataset.index;
-            console.log(index);
-            removeLocally(index);
-            let data = getKodoti('detallesOrdenes');
-            console.log(data);
-            showDataTable(data);
-            if (getKodoti('detallesOrdenes').length == 0) {
-                $('#detallesOrdenesOrdenCreate').val('');
-            }
-        });
-    }
-
     $('#tablaBodyOrdenCreate').on('click', 'a.btnBorrarOrdenCreate', function (e) {
-        console.log('EventoBorrar')
         target = e.currentTarget;
         let index = target.dataset.index;
-        console.log(index);
         removeLocally(index);
         let data = getKodoti('detallesOrdenes');
-        console.log($(this).parent().parent());
         $(this).parent().parent().remove();
 
-        //showRow(data);
+        updateDataTable();
+
         if (getKodoti('detallesOrdenes').length == 0) {
             $('#detallesOrdenesOrdenCreate').val('');
         }
@@ -458,7 +413,6 @@ $(document).ready(function () {
     }
 
     function defaultSelect() {
-        console.log("defaultSelect");
         $('#comboTipoSistemaOrdenCreate').prop("selectedIndex", 0);
         $('#comboDispositivoOrdenCreate').prop("selectedIndex", 0);
     }
@@ -473,36 +427,6 @@ $(document).ready(function () {
 
     function saveKodoti(name, data) {
         kodotiCache.add(name, JSON.stringify(data), { type: KodotiLocalCache.TIMETYPE.MINUTES, value: 30 });
-    }
-
-    $('#botonPrueba').click(function () {
-        guardarOrdenAJAX();
-    });
-
-    function guardarOrdenAJAX() {
-        let cliente = $('#clienteOrdenCreate').val();
-        let sucursal = $('#sucursalOrdenCreate').val();
-        let asunto = $('#asuntoOrdenCreate').val();
-        let remitente = $('#remitenteOrdenCreate').val();
-        let imagen = $('#imagenOrdenCreate')[0];
-
-        let formData = new FormData();
-
-        formData.append('cliente', cliente);
-        formData.append('sucursal', sucursal);
-        formData.append('asunto', asunto);
-        formData.append('remitente', remitente);
-        formData.append('imagen[]', imagen);
-
-        $.ajax({
-            url: 'http://localhost/order/orden/pruebaAJAX',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-        }).done(function (data) {
-            console.log(data);
-        });
     }
 
 });

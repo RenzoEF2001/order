@@ -153,8 +153,6 @@ $(document).ready(function () {
 
         let estado = await asignarEmpleado(codigoEmpleado, codigoOrden);
 
-        console.log(estado);
-
         if (estado) {
             icon = 'success';
             title = 'Asignado correctamente';

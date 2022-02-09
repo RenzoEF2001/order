@@ -3,7 +3,6 @@ $(document).ready(function () {
     getDataStatistic_1();
     getDataStatistic_2();
     getDataStatistic_3();
-    //renderStatistic_3();
 
 });
 
@@ -14,7 +13,6 @@ function getDataStatistic_1() {
         type: 'POST',
         dataType: 'json',
     }).done(function (data) {
-        //console.log(data);
         renderStatistic_1(data);
     });
 }
@@ -26,7 +24,6 @@ function getDataStatistic_2() {
         type: 'POST',
         dataType: 'json',
     }).done(function (data) {
-        //console.log(data);
         renderStatistic_2(data);
     });
 }
@@ -45,7 +42,6 @@ function getDataStatistic_3() {
         type: 'POST',
         dataType: 'json',
     }).done(function (data) {
-        //console.log(data);
         renderStatistic_3(data);
     });
 }

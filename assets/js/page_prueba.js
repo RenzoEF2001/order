@@ -10,11 +10,8 @@ $(document).ready(function () {
         let formData = new FormData();
 
         for (let index = 0; index < 5; index++) {
-            let imagen = $('#imagenRemplazo')[0].files[index];
-            formData.append('imagen[]', imagen);
+            formData.append('imagen[]', $('#imagenPrueba')[0].files[index]);
         }
-
-        
     
         $.ajax({
             url: 'http://localhost/order/pruebas/pruebaAJAX',

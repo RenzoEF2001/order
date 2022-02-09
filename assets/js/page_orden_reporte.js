@@ -55,7 +55,6 @@ $(document).ready(function () {
             dataType: 'json',
         }).done(function(data){
             let cont = 0
-            console.log(data);
             for(let valor of data){
 
                 if(valor['ESTADO_ORDEN'] == 1){
@@ -135,7 +134,7 @@ $(document).ready(function () {
             let cont = 0;
 
             $('#codigoOrdenReporte').text('CODIGO ORDEN: ' + data['orden'][0]['COD_ORDEN']);
-            console.log(data);
+
             $('#tablaModalOrdenReporte').DataTable({
                 "destroy": true,
                 "pageLength": 5,
