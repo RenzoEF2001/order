@@ -163,6 +163,53 @@ class Orden extends CI_Controller
         echo json_encode($data);
     }
 
+    public function addEvidenciaAJAX()
+    {
+        $codigo = $this->input->post('codigo');
+        sleep(1);
+        $imagenesNombres = '';
+        $count = 1;
+        $status_files = [];
+        foreach($_FILES["imagen"]['tmp_name'] as $key => $tmp_name){
+            if (isset($_FILES['imagen'])) {
+                if ($count == 6) {
+                    break;
+                }
+                $image_name = $_FILES['imagen']["name"][$key];
+                $extencion = $this->obtenerExtensionFichero($image_name);
+                $filename = $codigo . '_' . $count . '.' . $extencion;
+                $imagenesNombres .= $filename . ',';
+                $source = $_FILES['imagen']["tmp_name"][$key];
+
+                $directorio = 'assets/images/evidencias';
+
+                if (!file_exists($directorio)) {
+                    mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");
+                }
+
+                $dir = opendir($directorio);
+                $target_path = $directorio . '/' . $filename;
+
+                if (move_uploaded_file($source, $target_path)) {
+                    log_message('error', "El archivo $filename se ha almacenado en forma exitosa.");
+                    //$status = 1;
+                    //array_push($status_files,1);
+                } else {
+                    log_message('error', "Ha ocurrido un error, por favor inténtelo de nuevo.");
+                    //array_push($status_files,0);
+                }
+                closedir($dir);
+                $count++;
+            } else {
+                $status_files = [];
+                break;
+            }
+        }
+        $imagenesNombres = rtrim($imagenesNombres, ',');
+        $this->OrdenDetalleModel->updateImagenEvidencia($imagenesNombres, $codigo);
+        //echo json_encode($status_files);
+    }
+
     public function save()
     {
         $this->form_validation->set_rules($this->rules);
