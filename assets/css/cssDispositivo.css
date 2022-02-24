@@ -1,0 +1,10 @@
+#idTablaDispositivo_filter label{
+    width: 100%;
+}
+#idTablaDispositivo_filter label input{
+    width: 90%;
+}
+#idTablaDispositivo_info{
+    padding: 0;
+}
+

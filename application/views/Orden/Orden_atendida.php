@@ -17,6 +17,7 @@
                                         <th scope="col" class="cbz">Asunto</th>
                                         <th scope="col" class="cbz">Cliente</th>
                                         <th scope="col" class="cbz">Sucursal</th>
+                                        <th scope="col" class="cbz">Tecnico</th>
                                         <th scope="col" class="text-center">Ver Detalles</th>
                                         <th scope="col" class="text-center">Estado</th>
                                         <th scope="col" class="text-center"> </th>
@@ -29,13 +30,15 @@
                                         <td><?= $valor['FECHA_ORDEN'] ?></td>
                                         <td><?= $valor['HORA_ORDEN'] ?></td>
                                         <td
-                                            style="max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['ASUNTO'] ?></td>
-                                        <td><?= $valor['RAZON_SOCIAL'] ?></td>
+                                        <td style="max-width: 120px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $valor['RAZON_SOCIAL'] ?></td>
                                         <td
                                             style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['DIRECCION_SUCURSAL'] ?></td>
-
+                                        <td
+                                            style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            <?= $valor['NOMBRE_EMPLEADO'] ?></td>
                                         <td class="text-center"><button type="button"
                                                 class="btnDetallesOrdenAtendida btn btn-outline btn-rounded btn-icon"
                                                 data-codigo="<?= $valor['COD_ORDEN'] ?>"><i
@@ -46,8 +49,8 @@
                                         </td>
                                         <td class="text-center"><a type="button"
                                                 class="btnAgregarEvidenciaOrdenAtendida btn btn-outline btn-rounded btn-icon d-flex align-items-center justify-content-center"
-                                                data-codigo="<?= $valor['COD_ORDEN'] ?>" data-toggle="tooltip" data-placement="top"
-                                                title="Agregar Evidencia"><i
+                                                data-codigo="<?= $valor['COD_ORDEN'] ?>" data-toggle="tooltip"
+                                                data-placement="top" title="Agregar Evidencia"><i
                                                     class="mdi mdi-image-multiple mdi-18px text-primary"></i></a></td>
                                         <?php endif; ?>
                                         <?php if($valor['ESTADO_ORDEN'] == 5): ?>
@@ -58,6 +61,7 @@
                                         <?php endif; ?>
                                     </tr>
                                     <?php endforeach; ?>
+
                                 </tbody>
                             </table>
                         </div>
@@ -105,6 +109,16 @@
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" name="asunto"
                                                     id="asuntoOrdenAtendida" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Tecnico</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="tecnico"
+                                                    id="tecnicoOrdenAtendida" disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -205,8 +219,37 @@
                                 <div class="row">
                                     <div class="col col-md-12">
                                         <div class="form-group">
+                                            <label class="col-form-label">Imagenes Evidencia</label>
+                                            <div id="carouselEvidenciaCerradaControls" class="carousel slide"
+                                                data-ride="carousel">
+                                                <div id="carruselEvidenciaCerradaOrdenAtendida" class="carousel-inner">
+                                                    <div class="carousel-item active">
+                                                        <img class="d-block w-100"
+                                                            src="<?= base_url() ?>assets/images/ordenes/no_disponible.png"
+                                                            alt="First slide">
+                                                    </div>
+                                                </div>
+                                                <a class="carousel-control-prev"
+                                                    href="#carouselEvidenciaCerradaControls" role="button"
+                                                    data-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next"
+                                                    href="#carouselEvidenciaCerradaControls" role="button"
+                                                    data-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
                                             <label class="col-form-label">Descripcion del problema</label>
-                                            <textarea disabled class="form-control-plaintext" name=""
+                                            <textarea disabled class="form-control" name=""
                                                 id="descripcionProblemaOrdenAtendida" cols="30"
                                                 rows="5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel eos dolorem deleniti quibusdam, sapiente nisi mollitia corporis animi iusto consectetur unde repellat illum cupiditate pariatur accusantium, eaque libero ipsum voluptatem.</textarea>
                                         </div>
@@ -241,7 +284,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group row">
-                                            
+
                                             <div class="col-sm-12">
                                                 <select id="cboDetallesOrdenesOrdenAtendida" class="form-control">
                                                     <option value="-1">Primero seleccione una orden</option>
@@ -256,13 +299,16 @@
                                     <div class="col-md-12">
                                         <div class="form-group row">
                                             <div class="col-sm-9">
-                                                <input id="inputAgregarEvidenciaOrdenAtendida" class="form-control" type="file" accept=".jpg,.jpeg,.png" multiple>
+                                                <input id="inputAgregarEvidenciaOrdenAtendida" class="form-control"
+                                                    type="file" accept=".jpg,.jpeg,.png" multiple>
                                             </div>
-                                            <button id="btnAgregarEvidenciaOrdenAtendida" class="btn btn-primary col-sm-3" disabled>Agregar</button>
+                                            <button id="btnAgregarEvidenciaOrdenAtendida"
+                                                class="btn btn-primary col-sm-3" disabled>Agregar</button>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
+
                                 <h4 class="card-title">Evidencias Actuales</h4>
                                 <div class="row">
                                     <div class="col col-md-12">
@@ -288,7 +334,6 @@
                                                 </a>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

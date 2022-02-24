@@ -77,7 +77,7 @@ class ClienteModel extends CI_Model
 
     public function view_sucu()
     {
-        $this->db->select('*');
+        $this->db->select('*, tb_sucursal.DIRECCION AS DIRECCION_SUCURSAL');
         $this->db->from('tb_sucursal');
         $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
         $this->db->where('tb_sucursal.ESTADO', 1);
@@ -106,7 +106,7 @@ class ClienteModel extends CI_Model
 
     public function getSucursalPerCliente($codigo)
     {
-        $this->db->select('*');
+        $this->db->select('*, tb_sucursal.DIRECCION AS DIRECCION_SUCURSAL');
         $this->db->from('tb_sucursal');
         $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
         $this->db->where('tb_sucursal.ESTADO', 1);

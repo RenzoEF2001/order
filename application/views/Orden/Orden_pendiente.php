@@ -16,6 +16,7 @@
                                         <th scope="col" class="cbz">Asunto</th>
                                         <th scope="col" class="cbz">Cliente</th>
                                         <th scope="col" class="cbz">Sucursal</th>
+                                        <th scope="col" class="cbz">Tecnico</th>
                                         <th scope="col" class="text-center">Ver Detalles</th>
                                         <th scope="col" class="text-center">Estado</th>
                                     </tr>
@@ -27,12 +28,15 @@
                                         <td><?= $valor['FECHA_ORDEN'] ?></td>
                                         <td><?= $valor['HORA_ORDEN'] ?></td>
                                         <td
-                                            style="max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['ASUNTO'] ?></td>
                                         <td><?= $valor['RAZON_SOCIAL'] ?></td>
                                         <td
                                             style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['DIRECCION_SUCURSAL'] ?></td>
+                                        <td
+                                            style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            <?= $valor['NOMBRE_EMPLEADO'] ?></td>
                                         <td class="text-center"><button type="button"
                                                 class="btnDetallesOrdenPendiente btn btn-outline btn-rounded btn-icon"
                                                 data-codigo="<?= $valor['COD_ORDEN'] ?>"><i
@@ -43,8 +47,8 @@
                                         </td>
                                         <?php endif; ?>
                                         <?php if($valor['ESTADO_ORDEN'] == 3): ?>
-                                        <td class="text-center"><button id="btnTrabajandoOrdenPendiente"
-                                                class="text-black-50 font-weight-bold badge badge-success">TRABAJANDO</button>
+                                        <td class="text-center"><button data-codigo="<?= $valor['COD_ORDEN'] ?>"
+                                                class="btnTrabajandoOrdenPendiente text-black-50 font-weight-bold badge badge-success">TRABAJANDO</button>
                                         </td>
                                         <?php endif; ?>
                                     </tr>
@@ -95,6 +99,16 @@
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" name="asunto"
                                                     id="asuntoOrdenPendiente" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Tecnico</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="tecnico"
+                                                    id="tecnicoOrdenPendiente" disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -196,7 +210,7 @@
                                     <div class="col col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Descripcion del problema</label>
-                                            <textarea disabled class="form-control-plaintext" name=""
+                                            <textarea disabled class="form-control" name=""
                                                 id="descripcionProblemaOrdenPendiente" cols="30"
                                                 rows="5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel eos dolorem deleniti quibusdam, sapiente nisi mollitia corporis animi iusto consectetur unde repellat illum cupiditate pariatur accusantium, eaque libero ipsum voluptatem.</textarea>
                                         </div>

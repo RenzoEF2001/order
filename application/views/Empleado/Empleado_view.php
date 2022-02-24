@@ -1,5 +1,4 @@
 <div class="main-panel">
-
     <div class="content-wrapper">
         <div class="row">
 
@@ -26,13 +25,13 @@
                             <?php $cont = 0; ?>
                             <?php foreach($empleado as $valor): ?>
                                 <tr>
-                                    <th scope="row"><?= ++$cont ?></td>
+                                    <td scope="row"><?= ++$cont ?></td>
                                     <td><?= $valor["COD_EMPLEADO"] ?></td>
                                     <td><?= $valor["NOMBRES"] ?></td>
                                     <td><?= $valor["APELLIDOS"] ?></td>
                                     <td><?= $valor["TELEFONO_MOVIL_1"] ?></td>
                                     <td class="text-center"><a href="<?= site_url('empleado/actualizar/'.$valor["COD_EMPLEADO"]); ?>"><i class="fas fa-edit"></i></a></td>
-                                    <td class="text-center"><a class="btnEliminarEmpleado" data-codigo="<?= $valor["COD_EMPLEADO"] ?>"><i class="fas fa-trash text-danger"></i></a></td>
+                                    <td class="text-center"><a class="btnEliminarEmpleado" style="cursor: pointer;" data-codigo="<?= $valor["COD_EMPLEADO"] ?>"><i class="fas fa-trash text-danger"></i></a></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -42,4 +41,4 @@
         </div>
     </div>
 </div>
-</div>
+

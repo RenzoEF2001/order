@@ -7,7 +7,7 @@ $(document).ready(function () {
         info: false,
         buttons: [],
         "columnDefs": [
-            { "width": "5%", "targets": [6,7] },
+            { "width": "5%", "targets": [7, 8] },
             { "width": "1%", "targets": 0 }
         ],
         "dom": 't<"row m-auto mt-2"p>'
@@ -17,7 +17,7 @@ $(document).ready(function () {
         "pageLength": 5,
         "scrollX": false,
         searching: false,
-        ordering:  false,
+        ordering: false,
         paging: false,
         info: false,
         buttons: [],
@@ -30,13 +30,13 @@ $(document).ready(function () {
     $('.btnDetallesOrdenPendiente').bind('click', function (e) {
         target = e.currentTarget;
         let codigo = target.dataset.codigo;
-        
+
         $.ajax({
             url: 'http://localhost/order/orden/getOrdenDetallePerOrdenAJAX',
             data: { codigo: codigo },
             type: 'POST',
             dataType: 'json',
-        }).done(function(data){
+        }).done(function (data) {
             $('#tablaModalBody1OrdenPendiente').empty();
             let cont = 0;
 
@@ -44,9 +44,10 @@ $(document).ready(function () {
             $('#clienteOrdenPendiente').val(data['orden'][0]['RAZON_SOCIAL']);
             $('#sucursalOrdenPendiente').val(data['orden'][0]['DIRECCION']);
             $('#asuntoOrdenPendiente').val(data['orden'][0]['ASUNTO']);
+            $('#tecnicoOrdenPendiente').val(data['orden'][0]['NOMBRE_EMPLEADO']);
             $('#remitenteOrdenPendiente').val(data['orden'][0]['REMITENTE']);
-            
-            for(let valor of data['ordendetalle']){
+
+            for (let valor of data['ordendetalle']) {
                 $('#tablaModalBody1OrdenPendiente').append(`
                     <tr>
                         <td>${valor['COD_ORDEN_DETALLE']}</td>
@@ -61,14 +62,14 @@ $(document).ready(function () {
             $('#modalOrdenPendiente').modal('show');
             generateEvent();
         });
-        
+
     });
 
-    $('.btnPendienteOrdenPendiente').bind('click', async function(e){
+    $('.btnPendienteOrdenPendiente').bind('click', async function (e) {
         let title = 'Cambio de estado';
         let text = '¿Desea pasar esta orden de pendiente a trabajando?';
         let status = await alertChange(title, text);
-        if(status){
+        if (status) {
             target = e.currentTarget;
             let codigo = target.dataset.codigo;
             $.ajax({
@@ -76,19 +77,45 @@ $(document).ready(function () {
                 data: { codigo: codigo, estado: 3 },
                 type: 'POST',
                 dataType: 'json',
+                statusCode: {
+                    200: function () {
+                        location.reload();
+                    }
+                }
             });
-            location.reload();
         }
-        
+
     });
 
-    $('#btnAtrasOrdenPendiente').click(function(){
+    $('.btnTrabajandoOrdenPendiente').bind('click', async function (e) {
+        let title = 'Cambio de estado';
+        let text = '¿Desea pasar esta orden de trabajando a atendido?';
+        let status = await alertChange(title, text);
+        if (status) {
+            target = e.currentTarget;
+            let codigo = target.dataset.codigo;
+            $.ajax({
+                url: 'http://localhost/order/orden/changeEstadoAJAX',
+                data: { codigo: codigo, estado: 4 },
+                type: 'POST',
+                dataType: 'json',
+                statusCode: {
+                    200: function () {
+                        location.reload();
+                    }
+                }
+            })
+        }
+
+    });
+
+    $('#btnAtrasOrdenPendiente').click(function () {
         $('#modalOrdenPendiente').modal('show');
         $('#modalDetallesOrdenPendiente').modal('hide');
     });
 
 
-    function generateEvent(){
+    function generateEvent() {
         $('.btnDetalles2OrdenPendiente').bind('click', function (e) {
             target = e.currentTarget;
             let codigo = target.dataset.codigo;
@@ -99,7 +126,7 @@ $(document).ready(function () {
                 data: { codigo: codigo },
                 type: 'POST',
                 dataType: 'json',
-            }).done(function(data){
+            }).done(function (data) {
                 $('#tiposistemaOrdenPendiente').val(data[0]['DESCRIPCION']);
                 $('#dispositivoOrdenPendiente').val(data[0]['NOMBRE']);
                 $('#descripcionProblemaOrdenPendiente').val(data[0]['DESCRIPCION_PROBLEMA']);
@@ -112,7 +139,7 @@ $(document).ready(function () {
                         $('#carruselOrdenPendiente').append(`
                             <div class="carousel-item active">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    src="http://localhost/order/imagenes/back/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                         `);
@@ -120,16 +147,16 @@ $(document).ready(function () {
                         $('#carruselOrdenPendiente').append(`
                             <div class="carousel-item">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    src="http://localhost/order/imagenes/back/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                          `);
                     }
                 }
             });
-            
+
         });
-    }   
+    }
 
     function alertChange(title, text) {
         const swalWithBootstrapButtons = Swal.mixin({

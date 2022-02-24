@@ -25,6 +25,7 @@
                                         <label class="col-sm-3 col-form-label">Cliente</label>
                                         <div class="col-sm-9">
                                             <select class="form-control" name="FK_CLIENTE">
+                                                <option value="" selected>Seleccione un cliente</option>
                                                 <?php foreach($cliente as $valor): ?>
                                                     <option value="<?= $valor->ID_CLIENTE ?>"><?= $valor->RAZON_SOCIAL ?></option>
                                                 <?php endforeach; ?>

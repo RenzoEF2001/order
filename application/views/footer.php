@@ -44,8 +44,13 @@
 <script src="<?php echo base_url(); ?>assets/js/page_orden_atendida.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_orden_reporte.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_usuario_view.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_usuario_edit.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_usuario_modulo.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_perfil_view.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_dispositivo_view.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_dispositivo_edit.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_tiposistema_view.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/page_nomenclatura_view.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page_prueba.js"></script>
 <!-- End custom js for this page -->
 

@@ -69,10 +69,10 @@
                                     <div style="display: flex;align-items:center;justify-content: flex-end; margin-left: 10px;">
                                        
                                         <button type="submit" value="registra" class="btn btn-dark btn-fw" style="display: flex;"><i class="fi fi-rr-disk" style="display: flex;margin-right: 10px;"></i>Crear </button>
-                                        <div style="margin-left: 10px;">
+                                        <!-- <div style="margin-left: 10px;">
                                             <button type="button" class="btn btn-dark btn-fw" onClick='window.history.back()' action="<?php echo site_url('inicio'); ?>> <i class="mdi mdi-keyboard-return"></i> Regresar</button>
                                         </div>
-                                        
+                                         -->
                                     </div>
                                     
                                 </form>

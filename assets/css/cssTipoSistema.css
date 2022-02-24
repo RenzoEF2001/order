@@ -1,0 +1,18 @@
+#idTablaTipoSistema_filter label{
+    width: 100%;
+}
+#idTablaTipoSistema_filter label input{
+    width: 90%;
+}
+#idTablaTipoSistema_info{
+    padding: 0;
+}
+
+.btnAgregar-contenido{
+    cursor: pointer;
+}
+
+.btnAgregar-contenido::before{
+    content: "Agregar ";
+}
+

@@ -99,7 +99,7 @@ $(document).ready(function () {
                         $('#carruselOrdenCreada').append(`
                             <div class="carousel-item active">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    src="http://localhost/order/imagenes/back/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                         `);
@@ -107,7 +107,7 @@ $(document).ready(function () {
                         $('#carruselOrdenCreada').append(`
                             <div class="carousel-item">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    src="http://localhost/order/imagenes/back/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                          `);

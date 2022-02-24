@@ -35,27 +35,41 @@ $(document).ready(function () {
         target = e.currentTarget;
         let codigo = target.dataset.codigo;
         $.ajax({
-            url: 'http://localhost/order/empleado/cantidadUsuariosPerEmpleadoAJAX',
+            url: 'http://localhost/order/empleado/cantidadOrdenesPorEmpleado',
             data: { codigo: codigo },
             type: 'POST',
             dataType: 'json',
             success: async function (data) {
+                console.log(data);
                 let typeDelete;
                 let title = "<strong>¿Seguro que quiere eliminar este empleado?</strong>";
                 let text = "";
 
-                if (data > 0) {
-                    text = `Hay un usuario registrado para este empleado!!!<br>Si elimina este empleado tambien se borrará su usuario.`;
-                    typeDelete = "cascada";
-                } else {
-                    text = "No existe ningun usuario registrado para este empleado.<br>¿Desea proceder a eliminar?"
-                    typeDelete = "normal";
+                if(data['trabajando'] > 0) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'error',
+                        title: 'Tecnico trabajando',
+                        text: 'Ordenes asignadas en estado de proceso/trabajando. No se puede eliminar.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    return;
                 }
+
+                if (data['pendiente'] == 0) {
+                    text = `Este empleado no tiene ninguna orden asignada.<br>¿Desea proceder a eliminar?`;
+                    typeDelete = "cascada";
+                } 
+                if (data['pendiente'] > 0) {
+                    text = `Este empleado tiene ${data['pendiente']} ${data['pendiente'] == 1 ? 'orden asignada' : 'ordenes asignadas'}!!!<br>¿Desea proceder a eliminar?`;
+                    typeDelete = "cascada";
+                } 
 
                 let estado = await alertDelete(title, text, codigo);
 
                 if (estado) {
-                    if (deleteLogicalCliente(codigo, typeDelete)) {
+                    if (deleteLogicalEmpleado(codigo, typeDelete)) {
                         let title = "<strong>Eliminado!</strong>";
                         let text = "Empleado eliminado satisfactoriamente.";
                         let icon = "success"
@@ -133,7 +147,7 @@ $(document).ready(function () {
         });
     }
 
-    async function deleteLogicalCliente(codigo, typeDelete) {
+    async function deleteLogicalEmpleado(codigo, typeDelete) {
         let response = await $.ajax({
             url: 'http://localhost/order/empleado/deleteAJAX',
             data: { codigo: codigo, typeDelete: typeDelete },

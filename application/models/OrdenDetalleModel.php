@@ -77,5 +77,46 @@ class OrdenDetalleModel extends CI_Model
         return $res = $this->db->get('tb_orden_detalle')->last_row('array');
     }
 
+    public function getImagenesEvidencia($codigo)
+    {
+        $this->db->select('tb_orden_detalle.IMAGENES_EVIDENCIA');
+        $this->db->from('tb_orden_detalle');
+        $this->db->where('tb_orden_detalle.COD_ORDEN_DETALLE', $codigo);
+        return  $this->db->get()->result_array();
+    }
+
+    public function countByDispositivo($codigo)
+    {
+        $this->db->select('COUNT(*) AS CANTIDAD');
+        $this->db->from('tb_orden_detalle');
+        $this->db->join('tb_orden', 'tb_orden.ID_ORDEN = tb_orden_detalle.FK_ORDEN', 'inner');
+        $this->db->join('tb_dispositivo', 'tb_dispositivo.ID_DISPOSITIVO = tb_orden_detalle.FK_DISPOSITIVO', 'inner');
+        $this->db->where('tb_dispositivo.COD_DISPOSITIVO', $codigo);
+        $this->db->where_in('tb_orden.ESTADO', [1,2,3]);
+        return  $this->db->get()->row_array();
+    }
+
+    public function countByTipoSistema($codigo)
+    {
+        $this->db->select('COUNT(*) AS CANTIDAD');
+        $this->db->from('tb_orden_detalle');
+        $this->db->join('tb_orden', 'tb_orden.ID_ORDEN = tb_orden_detalle.FK_ORDEN', 'inner');
+        $this->db->join('tb_dispositivo', 'tb_dispositivo.ID_DISPOSITIVO = tb_orden_detalle.FK_DISPOSITIVO', 'inner');
+        $this->db->join('tb_tipo_sistema', 'tb_tipo_sistema.ID_TIPOSISTEMA = tb_dispositivo.FK_TIPOSISTEMA', 'inner');
+        $this->db->where('tb_tipo_sistema.COD_TIPOSISTEMA', $codigo);
+        $this->db->where_in('tb_orden.ESTADO', [1,2,3]);
+        return  $this->db->get()->row_array();
+    }
+
+    public function countByNomenclatura($codigo)
+    {
+        $this->db->select('COUNT(*) AS CANTIDAD');
+        $this->db->from('tb_orden_detalle');
+        $this->db->join('tb_orden', 'tb_orden.ID_ORDEN = tb_orden_detalle.FK_ORDEN', 'inner');
+        $this->db->join('tb_dispositivo', 'tb_dispositivo.ID_DISPOSITIVO = tb_orden_detalle.FK_DISPOSITIVO', 'inner');
+        $this->db->where('tb_dispositivo.FK_DISPOSITIVO_NOMENCLATURA', $codigo);
+        $this->db->where_in('tb_orden.ESTADO', [1,2,3]);
+        return  $this->db->get()->row_array();
+    }
 
 }

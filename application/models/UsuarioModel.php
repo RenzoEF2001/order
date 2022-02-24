@@ -12,14 +12,15 @@ class UsuarioModel extends CI_Model
     {
         $query = $this->db->insert('tb_usuario',$datos);
         $idCreada = $this->db->insert_id();
+        $codigo = $this->callSpGenerateCode('USU-',$idCreada)['CODIGO'];
 
-        $this->db->set('COD_USUARIO', $this->callSpGenerateCode('USU-',$idCreada)['CODIGO']);
+        $this->db->set('COD_USUARIO', $codigo);
         $this->db->where('ID_USUARIO', $idCreada);
         $this->db->update('tb_usuario'); 
 
         $data = [
             'status' => $query,
-            'id' => $idCreada
+            'codigo' => $codigo
         ];
 
         return $data;
@@ -79,15 +80,22 @@ class UsuarioModel extends CI_Model
         $this -> db -> where ('ID_USUARIO' , $idUsu); 
         $this -> db -> update ('tb_usuario',$datos); 
     }
-    public function actualizarFotoUsuario($foto,$idUsu){
+    public function actualizarFotoUsuario($foto,$codigo){
         $this -> db -> set ('FOTO' , $foto); 
-        $this -> db -> where ('ID_USUARIO' , $idUsu); 
+        $this -> db -> where ('COD_USUARIO' , $codigo); 
         $this -> db -> update ('tb_usuario'); 
     }
     public function elimnarUsu($idUsu){
         $this -> db -> set ('ESTADO','0'); 
         $this -> db -> where ('ID_USUARIO' , $idUsu ); 
         $this -> db -> update ('tb_usuario'); 
+    }
+
+    public function findById($id)
+    {
+        $this->db->from('tb_usuario');
+        $this->db->where('ID_USUARIO', $id);
+        return $this->db->get()->row_array();
     }
 
 }

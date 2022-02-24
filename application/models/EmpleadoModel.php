@@ -22,7 +22,7 @@ class EmpleadoModel extends CI_Model
             "id" => $idCreada
         ];
 
-        mysqli_next_result( $this->db->conn_id );
+        //mysqli_next_result( $this->db->conn_id );
         return $data;
     }
 

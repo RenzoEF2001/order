@@ -6,11 +6,6 @@ if (!isset($_SESSION['user'])) {
     redirect('Welcome/');
 } else {
     $dataUser = $_SESSION['user'];
-    // echo '<br>';
-    // echo '<br>';
-    // echo '<br>';
-    // echo '<pre>';
-    // print_r($dataUser);
 }
 
 ?>
@@ -40,6 +35,9 @@ if (!isset($_SESSION['user'])) {
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssModulo.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssPerfil.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssOrden.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssDispositivo.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssTipoSistema.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/cssNomenclatura.css">
 </head>
 
 <body class="sidebar-icon-only">
@@ -74,7 +72,7 @@ if (!isset($_SESSION['user'])) {
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
                             aria-expanded="false">
                             <div class="nav-profile-img">
-                                <img src="<?php echo base_url(); ?>assets/images/usuarios/<?= $dataUser["imagen"] ?>" alt="image">
+                                <img src="<?php echo base_url(); ?>imagenes/usuarios/<?= $dataUser["imagen"] ?>" alt="image">
                                 <span class="availability-status online"></span>
                             </div>
                             <div class="nav-profile-text">
@@ -189,6 +187,12 @@ if (!isset($_SESSION['user'])) {
                             <span class="menu-title">Dashboard</span>
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
+                        <div class="collapse" id="dash">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="<?php echo site_url('pruebas') ?>">Pruebas</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#Usuario" aria-expanded="false"
@@ -261,15 +265,15 @@ if (!isset($_SESSION['user'])) {
                         <div class="collapse" id="Dispositivos">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="../Dispositivo/Dispositivo_create.html">Agregar dispositivos</a></li>
+                                        href="<?= site_url('dispositivo/create');?>">Agregar dispositivos</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="../Dispositivo/Dispositivo_view.html">Visualizar dispositivos</a></li>
+                                        href="<?= site_url('dispositivo/');?>">Visualizar dispositivos</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="../Dispositivo/Dispositivo_tipo_sistema_view.html">Visualizar
+                                        href="<?= site_url('dispositivo/tiposistema_view');?>">Visualizar
                                         T.Sistema</a>
                                 </li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="../Dispositivo/Dispositivo_nomencaltura_view.html">Visualizar
+                                        href="<?= site_url('dispositivo/nomenclatura_view');?>">Visualizar
                                         nomenclaturas</a></li>
                             </ul>
                         </div>

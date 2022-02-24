@@ -12,15 +12,15 @@
                                 <b>
                                     <th scope="col" class="cbz">#</th>
                                 </b>
-                                <th scope="col">CODCLIENTE</th>
-                                <th scope="col">Razon Social</th>
-                                <th scope="col">Ruc</th>
+                                <th scope="col">CODIGO</th>
+                                <th scope="col">NOMBRE</th>
+                                <th scope="col">RUC</th>
                                 <th scope="col">TELEFONO 1</th>
                                 <th scope="col">TELEFONO 2</th>
-                                <th scope="col">Direccion</th>
-                                <th scope="col" class="text-center">Sucursales</th>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col" class="text-center">Eliminar</th>
+                                <th scope="col">DIRECCION</th>
+                                <th scope="col" class="text-center">SUCURSALES</th>
+                                <th scope="col" class="text-center">EDITAR</th>
+                                <th scope="col" class="text-center">ELIMINAR</th>
                             </tr>
                         </thead>
                         <tbody>

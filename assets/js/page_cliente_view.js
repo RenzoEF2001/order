@@ -27,7 +27,7 @@ $(document).ready(function () {
                     $("#idTablaSucursalModal").append(`
                         <tr>                           
                             <td>${valor['COD_CLIENTE_SUCURSAL']}</td>
-                            <td>${valor['DIRECCION']}</td>
+                            <td>${valor['DIRECCION_SUCURSAL']}</td>
                             <td>${valor['TELEFONO']}</td>
                             <td>${valor['NOMBRE_CONTACTO']}</td>
                             <td>${valor['TELEFONO_CONTACTO']}</td>

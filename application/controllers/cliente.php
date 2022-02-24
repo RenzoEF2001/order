@@ -25,7 +25,7 @@ class Cliente extends CI_Controller {
             ),
             array(
                 'field' => 'RAZON_SOCIAL',
-                'label' => 'RAZON_SOCIAL',
+                'label' => 'RAZON SOCIAL',
                 'rules' => 'required',
                 'errors'=> array(
                     'required' => 'El campo "%s" es requerido.',
@@ -33,7 +33,7 @@ class Cliente extends CI_Controller {
             ),
             array(
                 'field' => 'TELEFONO_1',
-                'label' => 'TELEFONO_1',
+                'label' => 'TELEFONO 1',
                 'rules' => 'required',
                 'errors'=> array(
                     'required' => 'El campo "%s" es requerido.',

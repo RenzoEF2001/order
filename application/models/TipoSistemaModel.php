@@ -15,6 +15,38 @@ class TipoSistemaModel extends CI_Model
         return  $this->db->get()->result_array();
     }
 
+    public function create($data)
+    {
+        $this->db->insert('tb_tipo_sistema', $data);
+        $idCreada = $this->db->insert_id();
+        $codigo = $this->callSpGenerateCode('TSM-', $idCreada)['CODIGO'];
+
+        $this->db->set('COD_TIPOSISTEMA', $codigo);
+        $this->db->where('ID_TIPOSISTEMA', $idCreada);
+        $this->db->update('tb_tipo_sistema');
+    }
+
+    public function update($codigo, $descripcion)
+    {
+        $this->db->set('DESCRIPCION', $descripcion);
+        $this->db->where('COD_TIPOSISTEMA', $codigo);
+        $this->db->update('tb_tipo_sistema');
+    }
+
+    public function delete($codigo)
+    {
+        $this->db->set('ESTADO', 0);
+        $this->db->where('COD_TIPOSISTEMA', $codigo);
+        $this->db->update('tb_tipo_sistema');
+    }
+
+    public function findByCodigo($codigo)
+    {
+        $this->db->from('tb_tipo_sistema');
+        $this->db->where('COD_TIPOSISTEMA', $codigo);
+        return  $this->db->get()->row_array();
+    }
+
     public function getTipoSistemaSolicitadoPorAño($año)
     {
         $this->db->select('tb_tipo_sistema.DESCRIPCION, COUNT(*) AS CANTIDAD');
@@ -34,6 +66,13 @@ class TipoSistemaModel extends CI_Model
          *   WHERE YEAR(o.FECHA_ORDEN) = 2022
          *   GROUP BY ts.DESCRIPCION
          */
+    }
+
+    public function callSpGenerateCode($nomenclatura, $num)
+    {
+        $query = $this->db->query("CALL `sp_generar_codigo`('$nomenclatura','$num')");
+        mysqli_next_result($this->db->conn_id);
+        return $query->row_array();
     }
 
 }

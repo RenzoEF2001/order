@@ -121,28 +121,12 @@ class Reporte extends CI_Controller
         /** For para las cantidades */
         $datacount = 0;
         foreach ($arrayData as $data){
+            if ($data == []) {
+                break;
+            }
             $cantidades = [];
             $count = -1;
             for ($j = 0; $j < count($res_array['meses']); $j++) {
-                // if(!isset($data[$count])){
-                //     log_message('error', 'No existe');
-                //     $count--;
-                // }
-                // if ($data[$count]["MES"] == $res_array['meses'][count($res_array['meses'])-1]) {
-                //     log_message('error', 'data: ' . $data[count($data) - 1]["MES"]);
-                //     log_message('error', 'res_array: ' . $res_array['meses'][count($res_array['meses'])-1]);
-                //     log_message('error', 'Va a salir');
-                //     break;
-                // }      
-                // log_message('error', '---------MES ' . $res_array['meses'][$j]);
-                // if($data[$count]['MES'] == $res_array['meses'][$j]){
-                //     log_message('error', 'Es igual, se procede a agregar: ' . $count);
-                //     array_push($cantidades, $data[$count]['CANTIDAD']);
-                //     $count++;
-                // } else {
-                //     log_message('error', 'NO es igual: ' . $count);
-                //     array_push($cantidades, 0);
-                // }
                 $count++;
                 if($res_array['meses'][$j] == $data[$count]['MES']){
                     array_push($cantidades, $data[$count]['CANTIDAD']);

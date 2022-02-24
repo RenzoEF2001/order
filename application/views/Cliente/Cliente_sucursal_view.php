@@ -32,7 +32,7 @@
                                         <tr>
                                             <td>'.++$count.'</td>
                                             <td>'.$sucursal->COD_CLIENTE_SUCURSAL.'</td>
-                                            <td>'.$sucursal->DIRECCION.'</td>
+                                            <td>'.$sucursal->DIRECCION_SUCURSAL.'</td>
                                             <td>'.$sucursal->TELEFONO.'</td>
                                             <td>'.$sucursal->NOMBRE_CONTACTO.'</td>
                                             <td>'.$sucursal->TELEFONO_CONTACTO.'</td>

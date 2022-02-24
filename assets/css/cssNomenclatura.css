@@ -1,0 +1,18 @@
+#idTablaNomenclatura_filter label{
+    width: 100%;
+}
+#idTablaNomenclatura_filter label input{
+    width: 90%;
+}
+#idTablaNomenclatura_info{
+    padding: 0;
+}
+
+.btnAgregarNomenclatura-contenido{
+    cursor: pointer;
+}
+
+.btnAgregarNomenclatura-contenido::before{
+    content: "Agregar ";
+}
+

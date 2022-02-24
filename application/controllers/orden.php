@@ -166,18 +166,21 @@ class Orden extends CI_Controller
     public function addEvidenciaAJAX()
     {
         $codigo = $this->input->post('codigo');
+        $imagenes_evidencia_registradas = $this->OrdenDetalleModel->getImagenesEvidencia($codigo);
+        $array_imagenes = explode(',', $imagenes_evidencia_registradas[0]['IMAGENES_EVIDENCIA']);
         sleep(1);
-        $imagenesNombres = '';
-        $count = 1;
+        $imagenesNombres = $imagenes_evidencia_registradas[0]['IMAGENES_EVIDENCIA'] == 'no_disponible.png' ? '' : $imagenes_evidencia_registradas[0]['IMAGENES_EVIDENCIA'];
+        $count = $array_imagenes[0] == 'no_disponible.png' ? 0 : count($array_imagenes);
+        log_message('error','count: '.$count);
         $status_files = [];
         foreach($_FILES["imagen"]['tmp_name'] as $key => $tmp_name){
             if (isset($_FILES['imagen'])) {
-                if ($count == 6) {
+                if ($count == 5) {
                     break;
                 }
                 $image_name = $_FILES['imagen']["name"][$key];
                 $extencion = $this->obtenerExtensionFichero($image_name);
-                $filename = $codigo . '_' . $count . '.' . $extencion;
+                $filename = $codigo . '_' . ($count+1) . '.' . $extencion;
                 $imagenesNombres .= $filename . ',';
                 $source = $_FILES['imagen']["tmp_name"][$key];
 
@@ -206,7 +209,9 @@ class Orden extends CI_Controller
             }
         }
         $imagenesNombres = rtrim($imagenesNombres, ',');
-        $this->OrdenDetalleModel->updateImagenEvidencia($imagenesNombres, $codigo);
+        if( count($array_imagenes) != 5){
+            $this->OrdenDetalleModel->updateImagenEvidencia($imagenesNombres, $codigo);
+        }
         //echo json_encode($status_files);
     }
 
@@ -231,7 +236,7 @@ class Orden extends CI_Controller
             "cod_orden" => ' ',
             "asunto" => $asunto,
             "fecha_orden" => date('Y-m-d', time()),
-            "hora_orden" => date('h:i:s', time()),
+            "hora_orden" => date('H:i:s', time()),
             "remitente" => $remitente,
             "estado" => 1,
             "fk_sucursal" => $this->ClienteModel->getSucursalPerCodigo($sucursal)['ID_SUCURSAL'],
@@ -296,7 +301,6 @@ class Orden extends CI_Controller
         $count = 1;
         $postName = 'imagen' . $indice;
         if (isset($_FILES[$postName])) {
-            log_message('error', "Existe Imagen");
             foreach ($_FILES[$postName]['tmp_name'] as $key => $tmp_name) {
                 if ($_FILES[$postName]["name"][$key]) {
                     if ($count == 6) {
@@ -308,7 +312,7 @@ class Orden extends CI_Controller
                     $imagenesNombres .= $filename . ',';
                     $source = $_FILES[$postName]["tmp_name"][$key];
 
-                    $directorio = 'assets/images/ordenes';
+                    $directorio = 'imagenes/back';
 
                     if (!file_exists($directorio)) {
                         mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");
@@ -324,6 +328,8 @@ class Orden extends CI_Controller
                     }
                     closedir($dir);
                     $count++;
+                } else {
+                    $imagenesNombres .= 'no_disponible.png';
                 }
             }
         } else {
@@ -333,10 +339,121 @@ class Orden extends CI_Controller
         return $imagenesNombres;
     }
 
+    public function addEvidenciaAJAX2()
+    {
+        sleep(1);
+
+        $data = [
+            'error' => [],
+            'success' => [
+                'error' => [],
+                'success' => []
+            ],
+            'info' => []
+        ];
+
+        $codigo = $this->input->post('codigo');
+
+        if($codigo == null || $codigo == "undefined"){
+            $error = 'Se produjo un error inesperado';
+            array_push($data['error'], $error); 
+            echo json_encode($data);
+            return;
+        }
+
+        $cantidad_imagenes = 5;
+        $imagenes_evidencia_registradas = $this->OrdenDetalleModel->getImagenesEvidencia($codigo);
+        if(count($imagenes_evidencia_registradas) == 0){
+            $error = 'El codigo del detalle de orden es incorrecto o no existe';
+            array_push($data['error'], $error); 
+            echo json_encode($data);
+            return;
+        }
+        $array_imagenes = explode(',', $imagenes_evidencia_registradas[0]['IMAGENES_EVIDENCIA']);
+        $array_imagenes = $array_imagenes[0] == 'no_disponible.png' ? [] : $array_imagenes;
+        $array_nombres_imagenes = $array_imagenes; 
+        $field = $_FILES;
+        
+        if (isset($_FILES["imagen"])) {
+            if (!empty($_FILES["imagen"]["name"])) {
+                $indice_field = 0;
+                for ($i = count($array_imagenes); $i < $cantidad_imagenes ; $i++) {
+                    if(!isset($field['imagen']['name'][$indice_field])){
+                        break; 
+                    } 
+
+                    $_FILES['imagen']['name'] = $field['imagen']['name'][$indice_field];
+                    $_FILES['imagen']['type'] = $field['imagen']['type'][$indice_field];
+                    $_FILES['imagen']['tmp_name'] = $field['imagen']['tmp_name'][$indice_field];
+                    $_FILES['imagen']['error'] = $field['imagen']['error'][$indice_field];
+                    $_FILES['imagen']['size'] = $field['imagen']['size'][$indice_field];
+                    
+                    $name_input = 'imagen';
+                    $name_image = $codigo . '_' . ($i+1);
+                    $path = 'imagenes/later';
+
+                    if($this->uploadImage2($name_input, $name_image, $path)){
+                        $success = 'La imagen <strong style="max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: inline-block;"> "'.$field['imagen']['name'][$indice_field].'" </strong> fue agregada con exito.';
+                        array_push($data['success']['success'], $success);
+                        array_push($array_nombres_imagenes, $this->upload->data()['file_name']);
+                    } else {
+                        $error = 'La imagen <strong style="max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: inline-block;"> "'.$field['imagen']['name'][$indice_field].'" </strong> no pudo ser agregada.';
+                        array_push($data['success']['error'], $error); 
+                        $i--;
+                    }
+                    $indice_field++;
+                }
+                if($indice_field < count($field['imagen']['name'])){
+                    $info = "Se ha excedido el maximo de imagenes. Limite max. $cantidad_imagenes";
+                    array_push($data['info'], $info); 
+                }
+            } else {
+                $error = 'No hay imagenes que guardar...';
+                array_push($data['error'], $error); 
+            }
+        } else {
+            $error = 'Debe ingresar alguna imagen';
+            array_push($data['error'], $error); 
+        }
+
+        if(isset($array_nombres_imagenes[0])){
+            $cadena_nombres = '';
+            foreach($array_nombres_imagenes as $nombre){
+                $cadena_nombres .= $nombre . ',';
+            }
+            $cadena_nombres = rtrim($cadena_nombres, ',');
+            $this->OrdenDetalleModel->updateImagenEvidencia($cadena_nombres, $codigo);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function uploadImage2($name_input ,$name_image, $path)
+    {
+        $config['upload_path'] = $path;
+        $config['file_name'] = $name_image;
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = '50000';
+        //$config['max_width'] = '2000';
+        $config['overwrite'] = true;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload($name_input)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function changeEstadoAJAX()
     {
         $codigo = $this->input->post('codigo');
         $estado = $this->input->post('estado');
+        if($estado == 4){
+            $this->OrdenModel->setFechaAtencion($codigo);
+        }
         $this->OrdenModel->updateEstado($estado, $codigo);
     }
 

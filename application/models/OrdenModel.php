@@ -35,6 +35,29 @@ class OrdenModel extends CI_Model
         $this->db->update('tb_orden');
     }
 
+    public function setFechaAtencion($codigo)
+    {
+        date_default_timezone_set('America/Toronto');
+        $this->db->set('FECHA_ATENCION', date('Y-m-d', time()));
+        $this->db->set('HORA_ATENCION', date('H:i:s', time()));
+        $this->db->where('COD_ORDEN', $codigo);
+        $this->db->update('tb_orden');
+    }
+
+    public function updateEstado_Empleado($estado,$new_estado,$codigo)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_empleado');
+        $this->db->where('tb_empleado.COD_EMPLEADO', $codigo);
+        $empleado = $this->db->get()->row_array();
+
+        $this->db->set('ESTADO', $new_estado);
+        $this->db->set('FK_EMPLEADO', NULL);
+        $this->db->where('FK_EMPLEADO', $empleado['ID_EMPLEADO']);
+        $this->db->where('ESTADO', $estado);
+        $this->db->update('tb_orden');
+    }
+
     public function getOrdenesCreadas()
     {
         $dataUser = $this->session->user;
@@ -52,10 +75,11 @@ class OrdenModel extends CI_Model
     public function getOrdenesPendientes()
     {
         $dataUser = $this->session->user;
-        $this->db->select('tb_orden.*, tb_orden.ESTADO AS ESTADO_ORDEN, tb_cliente.*, tb_sucursal.*, tb_sucursal.DIRECCION AS DIRECCION_SUCURSAL ');
+        $this->db->select('tb_orden.*, tb_orden.ESTADO AS ESTADO_ORDEN, tb_cliente.*, tb_sucursal.*, tb_sucursal.DIRECCION AS DIRECCION_SUCURSAL, CONCAT(tb_empleado.NOMBRES," ",tb_empleado.APELLIDOS) AS NOMBRE_EMPLEADO ');
         $this->db->from('tb_orden');
         $this->db->join('tb_sucursal', 'tb_sucursal.ID_SUCURSAL = tb_orden.FK_SUCURSAL', 'inner');
         $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
+        $this->db->join('tb_empleado', 'tb_empleado.ID_EMPLEADO = tb_orden.FK_EMPLEADO', 'inner');
         $this->db->where_in('tb_orden.ESTADO', [2,3]);
         if($dataUser['perfil'] == 1){
             $this->db->where('tb_orden.FK_EMPLEADO', $dataUser['empleado']['ID_EMPLEADO']);
@@ -69,10 +93,11 @@ class OrdenModel extends CI_Model
     public function getOrdenesAtendidas()
     {
         $dataUser = $this->session->user;
-        $this->db->select('tb_orden.*, tb_orden.ESTADO AS ESTADO_ORDEN, tb_cliente.*, tb_sucursal.*, tb_sucursal.DIRECCION AS DIRECCION_SUCURSAL');
+        $this->db->select('tb_orden.*, tb_orden.ESTADO AS ESTADO_ORDEN, tb_cliente.*, tb_sucursal.*, tb_sucursal.DIRECCION AS DIRECCION_SUCURSAL,CONCAT(tb_empleado.NOMBRES," ",tb_empleado.APELLIDOS) AS NOMBRE_EMPLEADO');
         $this->db->from('tb_orden');
         $this->db->join('tb_sucursal', 'tb_sucursal.ID_SUCURSAL = tb_orden.FK_SUCURSAL', 'inner');
         $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
+        $this->db->join('tb_empleado', 'tb_empleado.ID_EMPLEADO = tb_orden.FK_EMPLEADO', 'inner');
         $this->db->where_in('tb_orden.ESTADO', [4,5]);
         if($dataUser['perfil'] == 1){
             $this->db->where('tb_orden.FK_EMPLEADO', $dataUser['empleado']['ID_EMPLEADO']);
@@ -83,6 +108,17 @@ class OrdenModel extends CI_Model
         }
         return  $this->db->get()->result_array();
     }
+
+    // public function getOrdenesCreadasPerCode($codigo)
+    // {
+    //     $this->db->select('tb_orden.*, tb_cliente.*, tb_sucursal.*, CONCAT(tb_empleado.NOMBRES," ",tb_empleado.APELLIDOS) AS NOMBRE_EMPLEADO ');
+    //     $this->db->from('tb_orden');
+    //     $this->db->join('tb_sucursal', 'tb_sucursal.ID_SUCURSAL = tb_orden.FK_SUCURSAL', 'inner');
+    //     $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
+    //     $this->db->join('tb_empleado', 'tb_empleado.ID_EMPLEADO = tb_orden.FK_EMPLEADO', 'inner');
+    //     $this->db->where('tb_orden.COD_ORDEN', $codigo);
+    //     return  $this->db->get()->result_array();
+    // }
 
     public function getOrdenesCreadasPerCode($codigo)
     {
@@ -252,5 +288,16 @@ class OrdenModel extends CI_Model
          *   HAVING ESTADO IN(2,3,4)
          */
     }
+
+    public function getOrdenesPerEmpleado_Estado($empleado,$estado)
+    {
+        $this->db->select('COUNT(tb_orden.ID_ORDEN) AS CANTIDAD');
+        $this->db->from('tb_orden');
+        $this->db->join('tb_empleado', 'tb_empleado.ID_EMPLEADO = tb_orden.FK_EMPLEADO', 'inner');
+        $this->db->where('tb_empleado.COD_EMPLEADO', $empleado);
+        $this->db->where('tb_orden.ESTADO', $estado);
+        return $this->db->get()->row_array();
+    }
+
 
 }

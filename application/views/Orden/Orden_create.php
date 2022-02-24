@@ -36,7 +36,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <i class="mdi mdi-information-outline text-secondary" title="Solo apareceran los clientes con sucursales"></i>
+                                                    <i data-toggle="tooltip" class="mdi mdi-information-outline text-secondary" title="Solo apareceran los clientes con sucursales"></i>
                                                 </div>
                                             </div>
                                             

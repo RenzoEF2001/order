@@ -11,6 +11,7 @@ class Inicio extends CI_Controller {
     }
 
     public function index() {
+
         date_default_timezone_set('America/Lima');
         $creadas = $this->OrdenModel->getCantidadOrdenes_Mes(1, date('n', time()));
         $pendiente = $this->OrdenModel->getCantidadOrdenes_Mes(2, date('n', time()));

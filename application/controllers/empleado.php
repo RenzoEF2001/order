@@ -13,6 +13,7 @@ class Empleado extends CI_Controller
         $this->load->model("UsuarioModel");
         $this->load->model("TipoIdentificacionModel");
         $this->load->model("PerfilModel");
+        $this->load->model("OrdenModel");
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->rules = array(
@@ -198,8 +199,8 @@ class Empleado extends CI_Controller
 
         if (isset($_FILES['imagen'])) {
             if ($_FILES['imagen']['name'] != "") {
-                $nombre_imagen = $this->uploadImage('usu-'.$resultado2['id']);
-                $this->UsuarioModel->actualizarFotoUsuario($nombre_imagen, $resultado2['id']);
+                $nombre_imagen = $this->uploadImage($resultado2['codigo']);
+                $this->UsuarioModel->actualizarFotoUsuario($nombre_imagen, $resultado2['codigo']);
             }
         }
 
@@ -298,6 +299,9 @@ class Empleado extends CI_Controller
             $res = $this->UsuarioModel->deteleLogicalPerEmpleado($codigo);
             if ($res) {
                 $status = $this->EmpleadoModel->deleteLogical($codigo);
+                if($status){
+                    $this->OrdenModel->updateEstado_Empleado(2,1,$codigo);
+                }
             }
         }
         if ($typeDelete == "normal") {
@@ -305,6 +309,20 @@ class Empleado extends CI_Controller
         }
 
         echo json_encode($status);
+    }
+
+    public function cantidadOrdenesPorEmpleado()
+    {
+        $codigo = $this->input->post('codigo');
+        $pendientes = $this->OrdenModel->getOrdenesPerEmpleado_Estado($codigo,2);
+        $trabajando = $this->OrdenModel->getOrdenesPerEmpleado_Estado($codigo,3);
+
+        $datos = [
+            'pendiente' => $pendientes['CANTIDAD'],
+            'trabajando' => $trabajando['CANTIDAD']
+        ];
+
+        echo json_encode($datos);
     }
 
     public function generateCodeEmpleado($nomenclatura)
@@ -322,10 +340,10 @@ class Empleado extends CI_Controller
     public function uploadImage($name_image)
     {
         $name = 'imagen';
-        $config['upload_path'] = 'assets/images/usuarios';
+        $config['upload_path'] = 'imagenes/usuarios';
         $config['file_name'] = $name_image;
         $config['allowed_types'] = 'jpg|png|jpeg';
-        $config['max_width'] = '1024';
+        $config['max_width'] = '2000';
         $config['overwrite'] = true;
         $this->load->library('upload', $config);
         $this->upload->do_upload($name);

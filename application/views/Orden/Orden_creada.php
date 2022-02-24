@@ -191,7 +191,7 @@
                                     <div class="col col-md-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Descripcion del problema</label>
-                                            <textarea disabled class="form-control-plaintext" name=""
+                                            <textarea disabled class="form-control" name=""
                                                 id="descripcionProblemaOrdenCreada" cols="30"
                                                 rows="5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel eos dolorem deleniti quibusdam, sapiente nisi mollitia corporis animi iusto consectetur unde repellat illum cupiditate pariatur accusantium, eaque libero ipsum voluptatem.</textarea>
                                         </div>

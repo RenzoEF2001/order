@@ -13,7 +13,7 @@ $(document).ready(function () {
         info: false,
         buttons: [],
         "columnDefs": [
-            { "width": "5%", "targets": [6, 7] },
+            { "width": "5%", "targets": [7, 8] },
             { "width": "1%", "targets": [0, 8] }
         ],
         "dom": 't<"row m-auto mt-2"p>'
@@ -50,6 +50,7 @@ $(document).ready(function () {
             $('#clienteOrdenAtendida').val(data['orden'][0]['RAZON_SOCIAL']);
             $('#sucursalOrdenAtendida').val(data['orden'][0]['DIRECCION']);
             $('#asuntoOrdenAtendida').val(data['orden'][0]['ASUNTO']);
+            $('#tecnicoOrdenAtendida').val(data['orden'][0]['NOMBRE_EMPLEADO']);
             $('#remitenteOrdenAtendida').val(data['orden'][0]['REMITENTE']);
 
             for (let valor of data['ordendetalle']) {
@@ -88,8 +89,12 @@ $(document).ready(function () {
                 data: { codigo: codigo, estado: 5 },
                 type: 'POST',
                 dataType: 'json',
+                statusCode: {
+                    200: function () {
+                        location.reload();
+                    }
+                }
             });
-            location.reload();
         }
 
     });
@@ -101,7 +106,7 @@ $(document).ready(function () {
         $('#carruselEvidenciaOrdenAtendida').append(`
             <div class="carousel-item active">
                 <img class="d-block w-100"
-                    src="http://localhost/order/assets/images/evidencias/no_disponible.png"
+                    src="http://localhost/order/imagenes/later/no_disponible.png"
                     alt="First slide">
             </div>
         `);
@@ -123,14 +128,14 @@ $(document).ready(function () {
         let codigo = $('#cboDetallesOrdenesOrdenAtendida').val();
         let formData = new FormData();
 
-        if (codigo == -1 || codigo == null) {
-            console.log('entro 1');
-            return;
-        }
-        if ($('#inputAgregarEvidenciaOrdenAtendida')[0].files[0] === undefined) {
-            console.log('entro 2');
-            return;
-        }
+        // if (codigo == -1 || codigo == null) {
+        //     console.log('entro 1');
+        //     return;
+        // }
+        // if ($('#inputAgregarEvidenciaOrdenAtendida')[0].files[0] === undefined) {
+        //     console.log('entro 2');
+        //     return;
+        // }
 
         for (let index = 0; index < 5; index++) {
             formData.append('imagen[]', $('#inputAgregarEvidenciaOrdenAtendida')[0].files[index]);
@@ -139,11 +144,12 @@ $(document).ready(function () {
         formData.append('codigo', codigo);
 
         $.ajax({
-            url: 'http://localhost/order/orden/addEvidenciaAJAX',
+            url: 'http://localhost/order/orden/addEvidenciaAJAX2',
             data: formData,
             type: 'POST',
             contentType: false,
             processData: false,
+            dataType: 'json',
             beforeSend: function () {
                 let timerInterval
                 Swal.fire({
@@ -164,15 +170,51 @@ $(document).ready(function () {
                 })
             }
         }).done(function (data) {
-            //console.log(data);
-            /**Agregar Validacion */
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Imagenes agregadas con exito.',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            console.log(data);
+            if(data['error'].length > 0 ){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data['error'][0],
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+            if(data['success']['success'].length > 0 || data['success']['error'].length > 0){
+                let html = '<div style="text-align:left">';
+                for(let valor of data['success']['success']){
+                    html += `<p class="d-flex align-items-center"><i class="mdi mdi-check-circle-outline text-success"></i>&nbsp ${valor}</p>`;
+                }
+                for(let valor of data['success']['error']){
+                    html += `<p class="d-flex align-items-center"><i class="mdi mdi-close-circle-outline text-danger"></i>&nbsp ${valor}</p>`;
+                }
+                html += '</div>';
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    html: html,
+                    showConfirmButton: true,
+                })
+            }
+
+            if(data['info'].length > 0){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: data['info'][0],
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+            // Swal.fire({
+            //     position: 'center',
+            //     icon: 'success',
+            //     title: 'Imagenes agregadas con exito.',
+            //     showConfirmButton: false,
+            //     timer: 1500
+            // })
         })
     });
 
@@ -184,7 +226,6 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
         }).done(function (data) {
-            console.log(data);
             let imagenes = data[0]['IMAGENES_EVIDENCIA'].split(',')
             $('#carruselEvidenciaOrdenAtendida').empty();
             for (let i = 0; i < imagenes.length; i++) {
@@ -192,7 +233,7 @@ $(document).ready(function () {
                     $('#carruselEvidenciaOrdenAtendida').append(`
                         <div class="carousel-item active">
                             <img class="d-block w-100"
-                                src="http://localhost/order/assets/images/evidencias/${imagenes[i]}"
+                                src="http://localhost/order/imagenes/later/${imagenes[i]}"
                                 alt="First slide">
                         </div>
                     `);
@@ -200,7 +241,7 @@ $(document).ready(function () {
                     $('#carruselEvidenciaOrdenAtendida').append(`
                         <div class="carousel-item">
                             <img class="d-block w-100"
-                                src="http://localhost/order/assets/images/evidencias/${imagenes[i]}"
+                                src="http://localhost/order/imagenes/later/${imagenes[i]}"
                                 alt="First slide">
                         </div>
                      `);
@@ -210,7 +251,6 @@ $(document).ready(function () {
     });
 
     function showDetallesOrdenesCombo(codigo) {
-
         $.ajax({
             url: 'http://localhost/order/orden/getOrdenDetallePerOrdenAJAX',
             data: { codigo: codigo },
@@ -239,11 +279,13 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: 'json',
             }).done(function (data) {
+                console.log(data);
                 $('#tiposistemaOrdenAtendida').val(data[0]['DESCRIPCION']);
                 $('#dispositivoOrdenAtendida').val(data[0]['NOMBRE']);
                 $('#descripcionProblemaOrdenAtendida').val(data[0]['DESCRIPCION_PROBLEMA']);
 
                 let imagenes = data[0]['IMAGENES'].split(',')
+                let imagenes_evidencia = data[0]['IMAGENES_EVIDENCIA'].split(',')
 
                 $('#carruselOrdenAtendida').empty();
                 for (let i = 0; i < imagenes.length; i++) {
@@ -251,7 +293,7 @@ $(document).ready(function () {
                         $('#carruselOrdenAtendida').append(`
                             <div class="carousel-item active">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    src="http://localhost/order/imagenes/back/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                         `);
@@ -259,12 +301,34 @@ $(document).ready(function () {
                         $('#carruselOrdenAtendida').append(`
                             <div class="carousel-item">
                                 <img class="d-block w-100"
-                                    src="http://localhost/order/assets/images/ordenes/${imagenes[i]}"
+                                    src="http://localhost/order/imagenes/back/${imagenes[i]}"
                                     alt="First slide">
                             </div>
                          `);
                     }
                 }
+
+                $('#carruselEvidenciaCerradaOrdenAtendida').empty();
+                for (let i = 0; i < imagenes_evidencia.length; i++) {
+                    if (i == 0) {
+                        $('#carruselEvidenciaCerradaOrdenAtendida').append(`
+                            <div class="carousel-item active">
+                                <img class="d-block w-100"
+                                    src="http://localhost/order/imagenes/later/${imagenes_evidencia[i]}"
+                                    alt="First slide">
+                            </div>
+                        `);
+                    } else {
+                        $('#carruselEvidenciaCerradaOrdenAtendida').append(`
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="http://localhost/order/imagenes/later/${imagenes_evidencia[i]}"
+                                    alt="First slide">
+                            </div>
+                         `);
+                    }
+                }
+
             });
 
         });
