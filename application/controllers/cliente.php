@@ -118,7 +118,6 @@ class Cliente extends CI_Controller {
     }
     public function EditCli(){
         $this->form_validation->set_rules($this->rules);
-        
         if($this->form_validation->run() == FALSE){
             return $this->llenarCampos_Cli($this->input->post('COD_CLIENTE'));
         }
@@ -131,7 +130,7 @@ class Cliente extends CI_Controller {
         $datos['DIRECCION'] = $this->input->post('DIRECCION');
         $this->ClienteModel->actualizarcli($datos, $idclie);
 
-        redirect('cliente/index');
+        redirect('Cliente/');
     }
 
     /*sucursal*/

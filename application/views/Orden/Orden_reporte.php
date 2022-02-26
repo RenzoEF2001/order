@@ -13,7 +13,7 @@
                                     <label class="col-sm-3 col-form-label">Estado</label>
                                     <div class="col-sm-9">
                                         <select id="cboEstadoOrdenReporte" class="form-control">
-                                            <option value="" selected >Buscar por estado</option>
+                                            <option value="" selected>Buscar por estado</option>
                                             <?php foreach($estados as $valor): ?>
                                             <?php if($valor['ESTADO'] == 1): ?>
                                             <option value="<?= $valor['ESTADO'] ?>">Creada</option>
@@ -130,7 +130,8 @@
                                         <td
                                             style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['DIRECCION_SUCURSAL'] ?></td>
-                                        <td><?= $valor['FK_EMPLEADO'] == null ? 'No asignado' : $valor['NOMBRES'] . ' ' . $valor['APELLIDOS'] ?></td>
+                                        <td><?= $valor['FK_EMPLEADO'] == null ? 'No asignado' : $valor['NOMBRES'] . ' ' . $valor['APELLIDOS'] ?>
+                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>

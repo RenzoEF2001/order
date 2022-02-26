@@ -40,7 +40,6 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
             success: async function (data) {
-                console.log(data);
                 let typeDelete;
                 let title = "<strong>¿Seguro que quiere eliminar este empleado?</strong>";
                 let text = "";

@@ -52,6 +52,10 @@ $(document).ready(function () {
             $('#asuntoOrdenAtendida').val(data['orden'][0]['ASUNTO']);
             $('#tecnicoOrdenAtendida').val(data['orden'][0]['NOMBRE_EMPLEADO']);
             $('#remitenteOrdenAtendida').val(data['orden'][0]['REMITENTE']);
+            $('#fechaOrdenAtendida').val(data['orden'][0]['FECHA_ORDEN']);
+            $('#horaOrdenAtendida').val(data['orden'][0]['HORA_ORDEN']);
+            $('#fechaAtencionOrdenAtendida').val(data['orden'][0]['FECHA_ATENCION']);
+            $('#horaAtencionOrdenAtendida').val(data['orden'][0]['HORA_ATENCION']);
 
             for (let valor of data['ordendetalle']) {
                 $('#tablaModalBody1OrdenAtendida').append(`
@@ -118,7 +122,6 @@ $(document).ready(function () {
     });
 
     $('#inputAgregarEvidenciaOrdenAtendida').change(function (e) {
-        console.log(this.files[0]);
         if (this.files[0] !== undefined) {
             $('#btnAgregarEvidenciaOrdenAtendida').removeAttr("disabled");
         }
@@ -127,15 +130,6 @@ $(document).ready(function () {
     $('#btnAgregarEvidenciaOrdenAtendida').click(function (e) {
         let codigo = $('#cboDetallesOrdenesOrdenAtendida').val();
         let formData = new FormData();
-
-        // if (codigo == -1 || codigo == null) {
-        //     console.log('entro 1');
-        //     return;
-        // }
-        // if ($('#inputAgregarEvidenciaOrdenAtendida')[0].files[0] === undefined) {
-        //     console.log('entro 2');
-        //     return;
-        // }
 
         for (let index = 0; index < 5; index++) {
             formData.append('imagen[]', $('#inputAgregarEvidenciaOrdenAtendida')[0].files[index]);
@@ -170,7 +164,6 @@ $(document).ready(function () {
                 })
             }
         }).done(function (data) {
-            console.log(data);
             if(data['error'].length > 0 ){
                 Swal.fire({
                     position: 'center',
@@ -279,7 +272,6 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: 'json',
             }).done(function (data) {
-                console.log(data);
                 $('#tiposistemaOrdenAtendida').val(data[0]['DESCRIPCION']);
                 $('#dispositivoOrdenAtendida').val(data[0]['NOMBRE']);
                 $('#descripcionProblemaOrdenAtendida').val(data[0]['DESCRIPCION_PROBLEMA']);

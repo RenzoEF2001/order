@@ -81,12 +81,19 @@
                                 </div>
                             </div>
 
-                            <div style="display: flex;align-items:center;justify-content: flex-end;">
-                                <button type="submit" value="registra" class="btn btn-dark btn-fw"
-                                    style="display: flex;"><i class="fi fi-rr-disk"
-                                        style="display: flex;margin-right: 10px;"></i>Actualizar </button>
-
-
+                            <div class="form-group mt-5 mb-0">
+                                <div class="row justify-content-end">
+                                    <a href="<?= site_url('Cliente/sucursales'); ?>"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-arrow-left btn-icon-prepend"></i>
+                                        Atras
+                                    </a>
+                                    <button type="submit"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-content-save btn-icon-prepend"></i>
+                                        Actualizar
+                                    </button>
+                                </div>
                             </div>
 
                         </form>

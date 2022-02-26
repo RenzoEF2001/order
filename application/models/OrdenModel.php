@@ -109,9 +109,19 @@ class OrdenModel extends CI_Model
         return  $this->db->get()->result_array();
     }
 
-    // public function getOrdenesCreadasPerCode($codigo)
+    public function getOrdenesCreadasPerCode($codigo)
+    {
+        $this->db->select('tb_orden.*, tb_cliente.*, tb_sucursal.*, CONCAT(tb_empleado.NOMBRES," ",tb_empleado.APELLIDOS) AS NOMBRE_EMPLEADO ');
+        $this->db->from('tb_orden');
+        $this->db->join('tb_sucursal', 'tb_sucursal.ID_SUCURSAL = tb_orden.FK_SUCURSAL', 'inner');
+        $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
+        $this->db->join('tb_empleado', 'tb_empleado.ID_EMPLEADO = tb_orden.FK_EMPLEADO', 'left');
+        $this->db->where('tb_orden.COD_ORDEN', $codigo);
+        return  $this->db->get()->result_array();
+    }
+
+    // public function getOrdenesPendientesPerCode($codigo)
     // {
-    //     $this->db->select('tb_orden.*, tb_cliente.*, tb_sucursal.*, CONCAT(tb_empleado.NOMBRES," ",tb_empleado.APELLIDOS) AS NOMBRE_EMPLEADO ');
     //     $this->db->from('tb_orden');
     //     $this->db->join('tb_sucursal', 'tb_sucursal.ID_SUCURSAL = tb_orden.FK_SUCURSAL', 'inner');
     //     $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
@@ -119,15 +129,6 @@ class OrdenModel extends CI_Model
     //     $this->db->where('tb_orden.COD_ORDEN', $codigo);
     //     return  $this->db->get()->result_array();
     // }
-
-    public function getOrdenesCreadasPerCode($codigo)
-    {
-        $this->db->from('tb_orden');
-        $this->db->join('tb_sucursal', 'tb_sucursal.ID_SUCURSAL = tb_orden.FK_SUCURSAL', 'inner');
-        $this->db->join('tb_cliente', 'tb_cliente.ID_CLIENTE = tb_sucursal.FK_CLIENTE', 'inner');
-        $this->db->where('tb_orden.COD_ORDEN', $codigo);
-        return  $this->db->get()->result_array();
-    }
 
     public function assignEmpleado($codigoEmpleado, $codigoOrden)
     {

@@ -63,7 +63,6 @@ class Reporte extends CI_Controller
         foreach($años as $valor){
             $res = $this->TipoSistemaModel->getTipoSistemaSolicitadoPorAño($valor); 
             $count = 0;
-            //log_message('error', '---------AÑO ' . $valor);
             for ($i=0; $i < count($data_statistic); $i++) { 
                 
                 if($res == []){
@@ -73,11 +72,9 @@ class Reporte extends CI_Controller
                         $count--;
                     }
                     if($res[$count]['DESCRIPCION'] == $data_statistic[$i]['tiposistema']){
-                        //log_message('error', 'Es igual ' . $count);
                         array_push($data_statistic[$i]['datos'], $res[$count]['CANTIDAD']); 
                         $count++;
                     } else {
-                        //log_message('error', 'NO es igual ' . $count);
                         array_push($data_statistic[$i]['datos'], 0);
                     }
                     if($res[count($res)-1]["DESCRIPCION"] == $data_statistic[count($data_statistic)-1]['tiposistema']){

@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Empleado extends CI_Controller
 {
     protected $rules;
+    protected $rules2;
 
     public function __construct()
     {
@@ -91,6 +92,56 @@ class Empleado extends CI_Controller
                     'required' => 'El campo "%s" es requerido.',
                 ),
             ),
+        );
+        $this->rules2 = array(
+            array(
+                'field' => 'nombre',
+                'label' => 'Nombre',
+                'rules' => 'required',
+                'errors' => array(
+                    'required' => 'El campo "%s" es requerido.',
+                ),
+            ),
+            array(
+                'field' => 'apellido',
+                'label' => 'Apellido',
+                'rules' => 'required',
+                'errors' => array(
+                    'required' => 'El campo "%s" es requerido.',
+                ),
+            ),
+            array(
+                'field' => 'correo',
+                'label' => 'Correo',
+                'rules' => 'valid_email',
+                'errors' => array(
+                    'valid_email' => 'El "%s" es invalido',
+                ),
+            ),
+            array(
+                'field' => 'telefono',
+                'label' => 'Telefono',
+                'rules' => 'numeric',
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                ),
+            ),
+            array(
+                'field' => 'segundoTelefono',
+                'label' => 'Segundo Telefono',
+                'rules' => 'numeric',
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                ),
+            ),
+            array(
+                'field' => 'telefonoFijo',
+                'label' => 'Telefono Fijo',
+                'rules' => 'numeric',
+                'errors' => array(
+                    'numeric' => 'El campo "%s" debe tener solo numeros.',
+                ),
+            )
         );
     }
 
@@ -239,7 +290,7 @@ class Empleado extends CI_Controller
                     'exact_length' => 'Su DNI debe en el campo "%s" tener 8 digitos',
                 ),
             );
-            array_push($this->rules, $nuevaRegla);
+            array_push($this->rules2, $nuevaRegla);
         }
         if ($this->input->post("tipoIdentificacion") == 2) {
             $nuevaRegla = array(
@@ -251,10 +302,10 @@ class Empleado extends CI_Controller
                     'exact_length' => 'Su Documento de Extrajeria en el campo "%s" debe tener 12 digitos',
                 ),
             );
-            array_push($this->rules, $nuevaRegla);
+            array_push($this->rules2, $nuevaRegla);
         }
 
-        $this->form_validation->set_rules($this->rules);
+        $this->form_validation->set_rules($this->rules2);
 
         if ($this->form_validation->run() == false) {
             return $this->actualizar($this->input->post("codigo"));

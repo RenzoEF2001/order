@@ -48,7 +48,7 @@
                                             <select name="nomenclatura" class="form-control">
                                                 <option value="">Seleccione la nomenclatura</option>
                                                 <?php foreach($nomenclatura as $valor): ?>
-                                                    <?php if( $dispositivo['FK_NOMENCLATURA'] == $valor['ID_NOMENCLATURA'] ): ?>
+                                                    <?php if( $dispositivo['FK_DISPOSITIVO_NOMENCLATURA'] == $valor['ID_DISPOSITIVO_NOMENCLATURA'] ): ?>
                                                         <option selected value="<?= $valor['ID_DISPOSITIVO_NOMENCLATURA'] ?>"><?= $valor['NOMENCLATURA'] ?></option>
                                                     <?php else: ?>
                                                         <option value="<?= $valor['ID_DISPOSITIVO_NOMENCLATURA'] ?>"><?= $valor['NOMENCLATURA'] ?></option>
@@ -108,17 +108,21 @@
                                 </div>
                             </div>
 
-                            <div style="display: flex;align-items:center;justify-content: flex-end; margin-left: 10px;">
-
-                                <button type="submit" class="btn btn-dark btn-fw" style="display: flex;"><i
-                                        class="fi fi-rr-disk" style="display: flex;margin-right: 10px;"></i>Actualizar
-                                </button>
-                                <div style="margin-left: 10px;">
-                                    <button type="button" class="btn btn-dark btn-fw" onClick='window.history.back()'>
-                                        <i class="mdi mdi-keyboard-return"></i> Regresar</button>
+                            <div class="form-group mt-5 mb-0">
+                                <div class="row justify-content-end">
+                                    <a href="<?= site_url('Dispositivo/'); ?>"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-arrow-left btn-icon-prepend"></i>
+                                        Atras
+                                    </a>
+                                    <button type="submit"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-content-save btn-icon-prepend"></i>
+                                        Actualizar
+                                    </button>
                                 </div>
-
                             </div>
+
                         </form>
                     </div>
                 </div>

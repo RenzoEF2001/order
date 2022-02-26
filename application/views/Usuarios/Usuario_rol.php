@@ -66,10 +66,14 @@
                                 </div>
                             </div>
 
-                            <div style="display: flex;align-items:center;justify-content: flex-end; margin-left: 10px;">
-                                <button id="btnCrear" type="submit" class="btn btn-gradient-primary btn-fw"
-                                    style="display: flex;"><i class="fi fi-rr-disk"
-                                        style="display: flex;margin-right: 10px;"></i>Crear </button>
+                            <div class="form-group mt-5 mb-0">
+                                <div class="row justify-content-end">
+                                    <button id="btnCrear" type="submit"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-content-save btn-icon-prepend"></i>
+                                        Crear
+                                    </button>
+                                </div>
                             </div>
 
                         </form>

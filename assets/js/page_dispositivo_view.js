@@ -12,7 +12,6 @@ $(document).ready(function () {
     $('.btnDetallesDispositivo').bind('click', function (e) {
         target = e.currentTarget;
         let codigo = target.dataset.codigo;
-        console.log(codigo);
         $.ajax({
             url: 'http://localhost/order/dispositivo/getDetallesDispositivo',
             data: { codigo: codigo },

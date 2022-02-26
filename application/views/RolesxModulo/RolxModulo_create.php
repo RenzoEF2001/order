@@ -42,38 +42,45 @@
                             </div>
 
                             <div class="row">
-                                <label class="col-sm-3 col-form-label">Permisos</label>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="form-check form-check-primary">
-                                            <label class="form-check-label"><input class="form-check-input"
-                                                    type="checkbox" value="Crear" name="PERMISO[]">Crear <i
-                                                    class="input-helper"></i></label>
-                                        </div>
-                                        <div class="form-check form-check-primary">
-                                            <label class="form-check-label"><input class="form-check-input"
-                                                    type="checkbox" value="Leer" name="PERMISO[]">Leer <i
-                                                    class="input-helper"></i></label>
-                                        </div>
-                                        <div class="form-check form-check-primary">
-                                            <label class="form-check-label"><input class="form-check-input"
-                                                    type="checkbox" value="Actualizar" name="PERMISO[]">Actualizar <i
-                                                    class="input-helper"></i></label>
-                                        </div>
-                                        <div class="form-check form-check-primary">
-                                            <label class="form-check-label"><input class="form-check-input"
-                                                    type="checkbox" value="Eliminar" name="PERMISO[]">Eliminar <i
-                                                    class="input-helper"></i></label>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Permisos</label>
+                                        <div class="col">
+                                            <div class="form-check form-check-primary">
+                                                <label class="form-check-label"><input class="form-check-input"
+                                                        type="checkbox" value="Crear" name="PERMISO[]">Crear <i
+                                                        class="input-helper"></i></label>
+                                            </div>
+                                            <div class="form-check form-check-primary">
+                                                <label class="form-check-label"><input class="form-check-input"
+                                                        type="checkbox" value="Leer" name="PERMISO[]">Leer <i
+                                                        class="input-helper"></i></label>
+                                            </div>
+                                            <div class="form-check form-check-primary">
+                                                <label class="form-check-label"><input class="form-check-input"
+                                                        type="checkbox" value="Actualizar" name="PERMISO[]">Actualizar
+                                                    <i class="input-helper"></i></label>
+                                            </div>
+                                            <div class="form-check form-check-primary">
+                                                <label class="form-check-label"><input class="form-check-input"
+                                                        type="checkbox" value="Eliminar" name="PERMISO[]">Eliminar <i
+                                                        class="input-helper"></i></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div style="display: flex;align-items:center;justify-content: flex-end; margin-left: 10px;">
-                                <button id="btnCrear" type="submit" class="btn btn-gradient-primary btn-fw"
-                                    style="display: flex;"><i class="fi fi-rr-disk"
-                                        style="display: flex;margin-right: 10px;"></i>Crear </button>
+                            <div class="form-group mt-5 mb-0">
+                                <div class="row justify-content-end">
+                                    <button id="btnCrear" type="submit"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-content-save btn-icon-prepend"></i>
+                                        Crear
+                                    </button>
+                                </div>
                             </div>
+
 
                         </form>
                     </div>

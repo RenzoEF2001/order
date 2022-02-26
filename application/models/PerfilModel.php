@@ -13,6 +13,13 @@ class PerfilModel extends CI_Model
         $this->db->where('ESTADO', 1);
         return $this->db->get()->result_array();
     }
+    public function findById($id)
+    {
+        $this->db->from('tb_perfil');
+        $this->db->where('ID_PERFIL', $id);
+        $this->db->where('ESTADO', 1);
+        return $this->db->get()->row_array();
+    }
     public function view_perfil()
     {
         $this->db->select('*');

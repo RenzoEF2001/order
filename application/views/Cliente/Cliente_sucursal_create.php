@@ -86,15 +86,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mt-5 mb-0">
                                 <div class="row justify-content-end">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalImportarDatos"
-                                        class="btn btn-greenexcel btn-fw" style="display: flex;"><i
-                                            class="mdi mdi-file-excel"
-                                            style="display: flex;margin-right: 10px;"></i>Importar </button>
-                                    <button type="submit" class="btn btn-dark btn-fw ml-2" style="display: flex;"> <i
-                                            class="fi fi-rr-disk" style="display: flex;margin-right: 10px;"></i>
-                                        Crear</button>
+                                    <button type="submit"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-content-save btn-icon-prepend"></i>
+                                        Crear
+                                    </button>
                                 </div>
                             </div>
 
@@ -102,50 +100,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalImportarDatos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <form class="forms-sample" action="" method="POST">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Importar</h4>
-                                    <p class="card-description">Importar datos de sucursales</p>
-                                    <div class="row">
-                                        <div class="col">
-
-                                            <div class="form-group">
-                                                <label>Subir Archivo</label>
-                                                <input type="file" name="img[]" class="file-upload-default">
-                                                <div class="input-group col-xs-12">
-                                                    <input type="text" class="form-control file-upload-info" disabled
-                                                        placeholder="Sucursales...">
-                                                    <span class="input-group-append">
-                                                        <button class="file-upload-browse btn btn-gradient-primary"
-                                                            type="button">Upload</button>
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>

@@ -1,3 +1,11 @@
+<?php 
+
+if (isset($_SESSION['user'])) {
+    redirect('Welcome/');
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>

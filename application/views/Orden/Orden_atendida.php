@@ -12,8 +12,8 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="cbz">Codigo</th>
-                                        <th scope="col" class="cbz">Fecha</th>
-                                        <th scope="col" class="cbz">Hora</th>
+                                        <th scope="col" class="cbz">Fecha Atencion</th>
+                                        <th scope="col" class="cbz">Hora Atencion</th>
                                         <th scope="col" class="cbz">Asunto</th>
                                         <th scope="col" class="cbz">Cliente</th>
                                         <th scope="col" class="cbz">Sucursal</th>
@@ -27,12 +27,14 @@
                                     <?php foreach($ordenesatendidas as $valor): ?>
                                     <tr>
                                         <td><?= $valor['COD_ORDEN'] ?></td>
-                                        <td><?= $valor['FECHA_ORDEN'] ?></td>
-                                        <td><?= $valor['HORA_ORDEN'] ?></td>
+                                        <td><?= $valor['FECHA_ATENCION'] ?></td>
+                                        <td><?= $valor['HORA_ATENCION'] ?></td>
                                         <td
                                             style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['ASUNTO'] ?></td>
-                                        <td style="max-width: 120px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $valor['RAZON_SOCIAL'] ?></td>
+                                        <td
+                                            style="max-width: 120px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            <?= $valor['RAZON_SOCIAL'] ?></td>
                                         <td
                                             style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                                             <?= $valor['DIRECCION_SUCURSAL'] ?></td>
@@ -119,6 +121,46 @@
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" name="tecnico"
                                                     id="tecnicoOrdenAtendida" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Fecha creacion</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="tecnico"
+                                                    id="fechaOrdenAtendida" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Hora Creacion</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="tecnico"
+                                                    id="horaOrdenAtendida" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Fecha Atendida</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="tecnico"
+                                                    id="fechaAtencionOrdenAtendida" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Hora Atendida</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="tecnico"
+                                                    id="horaAtencionOrdenAtendida" disabled />
                                             </div>
                                         </div>
                                     </div>

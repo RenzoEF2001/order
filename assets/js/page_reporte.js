@@ -6,10 +6,13 @@ $(document).ready(function () {
 
 });
 
+let currentTime = new Date();
+
 function getDataStatistic_1() {
+    let año_actual = currentTime.getFullYear();
     $.ajax({
         url: 'http://localhost/order/reporte/getEstadistica_1_AJAX',
-        data: { año: '2022' },
+        data: { año: año_actual },
         type: 'POST',
         dataType: 'json',
     }).done(function (data) {
@@ -18,9 +21,10 @@ function getDataStatistic_1() {
 }
 
 function getDataStatistic_2() {
+    mes_actual = currentTime.getMonth() + 1;
     $.ajax({
         url: 'http://localhost/order/reporte/getEstadistica_2_AJAX',
-        data: { mes: '2' },
+        data: { mes: mes_actual },
         type: 'POST',
         dataType: 'json',
     }).done(function (data) {
@@ -29,7 +33,6 @@ function getDataStatistic_2() {
 }
 
 function getDataStatistic_3() {
-    let currentTime = new Date();
     let year = currentTime.getFullYear()
     let años = [];
     for (let i = 4; i >= 0; i--) {

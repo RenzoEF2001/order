@@ -80,8 +80,6 @@ if (!isset($_SESSION['user'])) {
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-cached mr-2 text-success"></i> Actividad </a>
                             <div class="dropdown-divider"></div>
                             <button id="btnCerrarSesion" class="btn dropdown-item">
                                 <i class="mdi mdi-logout mr-2 text-primary"></i> Cerrar sesion </button>
@@ -90,71 +88,6 @@ if (!isset($_SESSION['user'])) {
                     <li class="nav-item d-none d-lg-block full-screen-link">
                         <a class="nav-link">
                             <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
-                            data-toggle="dropdown">
-                            <i class="mdi mdi-bell-outline"></i>
-                            <span class="count-symbol bg-danger"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                            aria-labelledby="notificationDropdown">
-                            <h6 class="p-3 mb-0">Ordenes</h6>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-info">
-                                        <i class="mdi mdi-briefcase"></i>
-                                    </div>
-                                </div>
-                                <div
-                                    class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject font-weight-normal mb-1">Clinica</h6>
-                                    <p class="text-gray ellipsis mb-0"> Fallo de las camaras de seguridad posterior </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-info">
-                                        <i class="mdi mdi-briefcase"></i>
-                                    </div>
-                                </div>
-                                <div
-                                    class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject font-weight-normal mb-1">Sise</h6>
-                                    <p class="text-gray ellipsis mb-0">Error en procedimiento de tarjetas </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-info">
-                                        <i class="mdi mdi-briefcase"></i>
-                                    </div>
-                                </div>
-                                <div
-                                    class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject font-weight-normal mb-1">Phantom</h6>
-                                    <p class="text-gray ellipsis mb-0"> Error en el reconocimiento de huella digital</p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="view/Orden/Orden_pending.html">
-                                <h6 class="p-3 mb-0 text-center">Mirar todas las ordenes pendientes</h6>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-power"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item nav-settings d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-format-line-spacing"></i>
                         </a>
                     </li>
                 </ul>
@@ -169,15 +102,15 @@ if (!isset($_SESSION['user'])) {
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item nav-profile">
-                        <a href="../Usuarios/Usuario_edit.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <div class="nav-profile-image">
-                                <img src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="profile">
+                                <img src="<?php echo base_url(); ?>imagenes/usuarios/<?= $dataUser["imagen"] ?>" alt="profile">
                                 <span class="login-status online"></span>
                                 <!--change to offline or busy as needed-->
                             </div>
                             <div class="nav-profile-text d-flex flex-column">
-                                <span class="font-weight-bold mb-2">NombredePersonal</span>
-                                <span class="text-secondary text-small">Perfil</span>
+                                <span class="font-weight-bold mb-2" style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $dataUser['empleado']['NOMBRES']. ' ' . $dataUser['empleado']['APELLIDOS'] ?></span>
+                                <span class="text-secondary text-small"><?= $dataUser['perfil']['NOMBRE'] ?></span>
                             </div>
                             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                         </a>
@@ -187,12 +120,6 @@ if (!isset($_SESSION['user'])) {
                             <span class="menu-title">Dashboard</span>
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
-                        <div class="collapse" id="dash">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="<?php echo site_url('pruebas') ?>">Pruebas</a></li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#Usuario" aria-expanded="false"
@@ -211,7 +138,7 @@ if (!isset($_SESSION['user'])) {
                                 <li class="nav-item"> <a class="nav-link"
                                         href="<?php echo site_url('roles/index') ?>">Asignar Roles</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="<?php echo site_url('roles/Catalogo_rol') ?>">Visializar Roles</a></li>
+                                        href="<?php echo site_url('roles/Catalogo_rol') ?>">Visualizar Roles</a></li>
                             </ul>
                         </div>
                     </li>

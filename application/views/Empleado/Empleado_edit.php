@@ -16,7 +16,8 @@
                                 &nbsp
                                 <div>','</div>
                                 </div>') ?>
-                            <input hidden name="codigo" id="codigo" type="text" class="form-control" value="<?= $empleado['COD_EMPLEADO'] ?>" />
+                            <input hidden name="codigo" id="codigo" type="text" class="form-control"
+                                value="<?= $empleado['COD_EMPLEADO'] ?>" />
                             <div id="paso1">
                                 <h4 class="card-title">Actualizar datos de empleado</h4>
                                 <p class="card-description">Informacion del personal</p>
@@ -55,19 +56,19 @@
                                             <div class="col-sm-9">
                                                 <select name="genero" id="genero" class="form-control">
                                                     <?php if($empleado['GENERO'] == 'M'): ?>
-                                                        <option value="M" selected>Masculino</option>
-                                                        <option value="F">Femenino</option>
-                                                        <option value="X">No menciona</option>
+                                                    <option value="M" selected>Masculino</option>
+                                                    <option value="F">Femenino</option>
+                                                    <option value="X">No menciona</option>
                                                     <?php endif; ?>
                                                     <?php if($empleado['GENERO'] == 'F'): ?>
-                                                        <option value="M">Masculino</option>
-                                                        <option value="F" selected>Femenino</option>
-                                                        <option value="X">No menciona</option>
+                                                    <option value="M">Masculino</option>
+                                                    <option value="F" selected>Femenino</option>
+                                                    <option value="X">No menciona</option>
                                                     <?php endif; ?>
                                                     <?php if($empleado['GENERO'] == 'X'): ?>
-                                                        <option value="M">Masculino</option>
-                                                        <option value="F">Femenino</option>
-                                                        <option value="X" selected>No menciona</option>
+                                                    <option value="M">Masculino</option>
+                                                    <option value="F">Femenino</option>
+                                                    <option value="X" selected>No menciona</option>
                                                     <?php endif; ?>
                                                 </select>
                                             </div>
@@ -78,7 +79,7 @@
                                             <label class="col-sm-3 col-form-label">Direccion</label>
                                             <div class="col-sm-9">
                                                 <input name="direccion" id="direccion" type="text" class="form-control"
-                                                value="<?= $empleado['DIRECCION'] ?>" />
+                                                    value="<?= $empleado['DIRECCION'] ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -159,11 +160,13 @@
                                                 <select name="tipoIdentificacion" id="tipoIdentificacion"
                                                     class="form-control">
                                                     <?php foreach($tipoidentificacion as $valor): ?>
-                                                        <?php if($empleado["FK_TIPOIDENTIFICACION"] == $valor["ID_TIPO_IDENTIFICACION"]): ?>
-                                                            <option value="<?= $valor["ID_TIPO_IDENTIFICACION"] ?>" selected> <?= $valor["NOMBRE"] ?></option>
-                                                        <?php else: ?>
-                                                            <option value="<?= $valor["ID_TIPO_IDENTIFICACION"] ?>"> <?= $valor["NOMBRE"] ?></option>
-                                                        <?php endif; ?>
+                                                    <?php if($empleado["FK_TIPOIDENTIFICACION"] == $valor["ID_TIPO_IDENTIFICACION"]): ?>
+                                                    <option value="<?= $valor["ID_TIPO_IDENTIFICACION"] ?>" selected>
+                                                        <?= $valor["NOMBRE"] ?></option>
+                                                    <?php else: ?>
+                                                    <option value="<?= $valor["ID_TIPO_IDENTIFICACION"] ?>">
+                                                        <?= $valor["NOMBRE"] ?></option>
+                                                    <?php endif; ?>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
@@ -196,14 +199,18 @@
                                 </div>
                             </div>
 
-                            <div style="display: flex;align-items:center;justify-content: flex-end; margin-left: 10px;">
-                                <button id="btnCrear" type="submit" class="btn btn-dark btn-fw"
-                                    style="display: flex;"><i class="fi fi-rr-disk"
-                                        style="display: flex;margin-right: 10px;"></i>Crear </button>
-                                <div style="margin-left: 10px;">
-                                    <a href="<?= site_url('empleado/'); ?>" class="btn btn-dark btn-fw"
-                                        style="display: flex;"><i class="mdi mdi-arrow-left"
-                                            style="display: flex;margin-right: 0px;"></i>Atras</a>
+                            <div class="form-group mt-5 mb-0">
+                                <div class="row justify-content-end">
+                                    <a href="<?= site_url('empleado/'); ?>"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-arrow-left btn-icon-prepend"></i>
+                                        Atras
+                                    </a>
+                                    <button type="submit"
+                                        class="btn btn-gradient-primary btn-icon-text d-flex align-items-center mr-2">
+                                        <i class="mdi mdi-content-save btn-icon-prepend"></i>
+                                        Actualizar
+                                    </button>
                                 </div>
                             </div>
 
@@ -214,5 +221,4 @@
         </div>
 
     </div>
-</div>
 </div>

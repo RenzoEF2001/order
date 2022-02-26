@@ -7,6 +7,7 @@ class Welcome extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("LoginModel");
+		$this->load->model("PerfilModel");
 		$this->load->model("EmpleadoModel");
 		$this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
@@ -57,7 +58,7 @@ class Welcome extends CI_Controller {
 		$dataSession = [
 			"usuario" => $usuarioValid["USUARIO"],
 			"imagen" => $usuarioValid["FOTO"],
-			"perfil" => $usuarioValid["FK_PERFIL"],
+			"perfil" => $this->PerfilModel->findById($usuarioValid["FK_PERFIL"]),
 			"empleado" => $this->EmpleadoModel->getById($usuarioValid["FK_EMPLEADO"]),
 		];
 

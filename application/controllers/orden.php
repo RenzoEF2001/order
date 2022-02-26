@@ -171,7 +171,6 @@ class Orden extends CI_Controller
         sleep(1);
         $imagenesNombres = $imagenes_evidencia_registradas[0]['IMAGENES_EVIDENCIA'] == 'no_disponible.png' ? '' : $imagenes_evidencia_registradas[0]['IMAGENES_EVIDENCIA'];
         $count = $array_imagenes[0] == 'no_disponible.png' ? 0 : count($array_imagenes);
-        log_message('error','count: '.$count);
         $status_files = [];
         foreach($_FILES["imagen"]['tmp_name'] as $key => $tmp_name){
             if (isset($_FILES['imagen'])) {

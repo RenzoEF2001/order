@@ -3,9 +3,7 @@ $(document).ready(function () {
     $('#chkSinFotoUsuarioEdit').prop("checked",false);
 
     $('#btnOjoUsuarioEdit').click(function(e){
-        console.log($('#btnOjoUsuarioEdit.no-eye'));
-        console.log($('#btnOjoUsuarioEdit.eye'));
-        
+
         if($('#btnOjoUsuarioEdit.no-eye').length == 1){
             $('#inputContraseñaUsuarioEdit').attr('type','text');
             $('#icoOjoUsuarioEdit').removeClass('mdi mdi-eye-off');

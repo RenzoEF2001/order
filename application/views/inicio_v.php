@@ -71,7 +71,7 @@
                     <div class="col-lg-6 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Tipos de sistemas con mas averias</h4>
+                                <h4 class="card-title">Sistemas con mas averias</h4>
                                 <canvas id="areaChart" style="height:250px"></canvas>
                             </div>
                         </div>

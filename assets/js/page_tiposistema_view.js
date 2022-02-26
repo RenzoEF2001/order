@@ -60,7 +60,6 @@ $(document).ready(function () {
             dataType: 'json',
         })
             .done(async function (data) {
-                console.log(data);
                 if (data['CANTIDAD'] != 0) {
                     Swal.fire({
                         position: 'top-center',
